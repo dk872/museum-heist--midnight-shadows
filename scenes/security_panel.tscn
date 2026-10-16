@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dr7p57gpeb5mr"]
+
+[ext_resource type="Script" uid="uid://db2ponkte6fbf" path="res://scripts/security_panel.gd" id="1_grdyu"]
+[ext_resource type="Texture2D" uid="uid://b1m70pd478m7a" path="res://icon.svg" id="2_wybxe"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ffqod"]
+size = Vector2(36, 37)
+
+[node name="Security Panel" type="Area2D" unique_id=673608428 groups=["interactable"]]
+position = Vector2(44, 62)
+script = ExtResource("1_grdyu")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1260131149]
+scale = Vector2(0.2578125, 0.3046875)
+texture = ExtResource("2_wybxe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1121809970]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_ffqod")
