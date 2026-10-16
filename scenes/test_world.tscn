@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://bbggnc3juxkvr"]
+
+[ext_resource type="PackedScene" uid="uid://oc5b163tu0dp" path="res://scenes/characters/player.tscn" id="1_kyfjp"]
+[ext_resource type="PackedScene" uid="uid://dr7p57gpeb5mr" path="res://scenes/security_panel.tscn" id="2_amxg5"]
+[ext_resource type="PackedScene" uid="uid://b3odjv26fkyqq" path="res://scenes/display_case.tscn" id="3_3263u"]
+[ext_resource type="PackedScene" uid="uid://fc3wse83byun" path="res://scenes/exit_zone.tscn" id="4_umbte"]
+
+[node name="TestWorld" type="Node2D" unique_id=1453359172]
+
+[node name="Player" parent="." unique_id=1177765463 instance=ExtResource("1_kyfjp")]
+motion_mode = 1
+
+[node name="Security Panel" parent="." unique_id=81781015 instance=ExtResource("2_amxg5")]
+position = Vector2(124, 0)
+
+[node name="DisplayCase" parent="." unique_id=1046435963 instance=ExtResource("3_3263u")]
+position = Vector2(98, 79)
+
+[node name="ExitZone" parent="." unique_id=1524303452 instance=ExtResource("4_umbte")]
+position = Vector2(79, 222)
