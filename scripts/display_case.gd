@@ -6,6 +6,12 @@ var required_time: float = 2.0 # 2 seconds per GDD
 
 # Called when the player presses and holds the "interact" button
 func interact() -> void:
+	if GameManager.has_artifact:
+		return
+	# Locked until the security panel is hacked (GDD: panel -> case)
+	if not GameManager.panel_is_disabled:
+		GameManager.show_message("The case is protected. Disable the security panel first")
+		return
 	is_hacking = true
 	hack_time = 0.0
 	print("Display case hack started... Hold the key!")
@@ -19,7 +25,7 @@ func cancel_interact() -> void:
 
 # Built-in Godot function, called every frame
 func _process(delta: float) -> void:
-	if is_hacking:
+	if is_hacking and GameManager.state == GameManager.State.PLAYING:
 		hack_time += delta
 		if hack_time >= required_time:
 			is_hacking = false
