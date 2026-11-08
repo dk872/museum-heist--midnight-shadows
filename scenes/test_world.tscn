@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dr7p57gpeb5mr" path="res://scenes/security_panel.tscn" id="2_amxg5"]
 [ext_resource type="PackedScene" uid="uid://b3odjv26fkyqq" path="res://scenes/display_case.tscn" id="3_3263u"]
 [ext_resource type="PackedScene" uid="uid://fc3wse83byun" path="res://scenes/exit_zone.tscn" id="4_umbte"]
+[ext_resource type="PackedScene" path="res://ui/hud/hud.tscn" id="5_hud"]
 
 [node name="TestWorld" type="Node2D" unique_id=1453359172]
 
@@ -18,3 +19,5 @@ position = Vector2(98, 79)
 
 [node name="ExitZone" parent="." unique_id=1524303452 instance=ExtResource("4_umbte")]
 position = Vector2(79, 222)
+
+[node name="HUD" parent="." instance=ExtResource("5_hud")]
