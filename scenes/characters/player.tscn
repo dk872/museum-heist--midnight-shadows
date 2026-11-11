@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://oc5b163tu0dp"]
 
-[ext_resource type="Script" uid="uid://dbdy7b4xg687j" path="res://scripts/player/player_controller.gd" id="1_rp718"]
+[ext_resource type="Script" path="res://scripts/player/player_controller.gd" id="1_rp718"]
 [ext_resource type="Texture2D" uid="uid://c7ftmxju5nobt" path="res://assets/sprites/Hitman 1/hitman1_stand.png" id="2_yewv4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_obds8"]

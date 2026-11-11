@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b3odjv26fkyqq"]
 
-[ext_resource type="Script" uid="uid://cr8vmsgvp00ef" path="res://scripts/display_case.gd" id="1_c4s7v"]
-[ext_resource type="Texture2D" uid="uid://b1m70pd478m7a" path="res://icon.svg" id="1_pqt5d"]
+[ext_resource type="Script" path="res://scripts/display_case.gd" id="1_c4s7v"]
+[ext_resource type="Texture2D" path="res://assets/objects/display_case.svg" id="1_pqt5d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obds8"]
 size = Vector2(26, 26)
@@ -11,9 +11,22 @@ script = ExtResource("1_c4s7v")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=578848873]
 position = Vector2(-4.7683716e-07, -1)
-scale = Vector2(0.1953125, 0.2265625)
+scale = Vector2(1, 1)
 texture = ExtResource("1_pqt5d")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=340761690]
 position = Vector2(-1, -1)
 shape = SubResource("RectangleShape2D_obds8")
+
+[node name="ObjectLabel" type="Label" parent="."]
+offset_left = -90.0
+offset_top = -49.0
+offset_right = 90.0
+offset_bottom = -29.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.9, 1, 0.95, 1)
+theme_override_colors/font_outline_color = Color(0.03, 0.05, 0.08, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 14
+text = "ARTIFACT · Hold E"
+horizontal_alignment = 1

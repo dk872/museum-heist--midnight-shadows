@@ -8,6 +8,8 @@
 
 [ext_resource type="PackedScene" path="res://scenes/characters/guard.tscn" id="6_guard"]
 
+[ext_resource type="Script" path="res://scripts/stealth_navigation.gd" id="7_nav"]
+
 [sub_resource type="RectangleShape2D" id="Cover"]
 size = Vector2(60, 110)
 
@@ -41,3 +43,20 @@ shape = SubResource("Cover")
 [node name="Visual" type="Polygon2D" parent="Column"]
 polygon = PackedVector2Array(-30, -55, 30, -55, 30, 55, -30, 55)
 color = Color(0.32, 0.38, 0.46, 1)
+
+[node name="Navigation" type="Node2D" parent="."]
+script = ExtResource("7_nav")
+
+[node name="Sentry" parent="." instance=ExtResource("6_guard")]
+position = Vector2(360, 80)
+rotation = 1.5707963
+role = 1
+vision_range = 220.0
+
+[node name="Controls" type="Label" parent="HUD"]
+offset_left = 16.0
+offset_top = 90.0
+offset_right = 650.0
+offset_bottom = 115.0
+text = "WASD move | Shift quiet | E interact | Q throw coin (3)"
+mouse_filter = 2

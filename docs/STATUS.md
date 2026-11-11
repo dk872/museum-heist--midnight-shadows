@@ -40,23 +40,26 @@ What's done, how to use it, what's broken. One section per area.
 ## Guards & AI — Maria
 
 **Done**
-- Reusable guard scene, patrol route, Patrol / Investigate / Alarm state machine.
-- 60-degree RayCast2D vision; physics obstacles clip both detection and the yellow cone.
-- Distance-dependent suspicion, decay, highest-guard aggregation, defeat at 100%.
-- HUD detection bar, run reset signal, AI reset and player terminal-state gating.
-- One guard and a blocking column in the test world.
-- Integration test scene for occlusion, detection, result HUD, reset, pause and objectives.
+- Patrol, vision, distance-based suspicion, last-seen pursuit and local search.
+- Grid navigation with body clearance around static world collisions.
+- Walking/sneaking noise, three Q-key coin distractions and visible sound rings.
+- Patroller and sentry roles, panel investigation, status labels and periodic scans.
+- HUD suspicion, terminal-state gating and reset integration.
 
 **How to use**
-- See `docs/AI_GUIDE_UK.md` for setup and verification.
-- Instance `scenes/characters/guard.tscn`; set patrol_points as offsets from spawn.
-- Physics layers: 1 world, 2 player, 3 guards. Vision mask: world + player.
+- See `docs/STEALTH_MECHANICS.md`.
+- F5 starts the demo; F6 on `tests/ai_integration.tscn` runs regression checks.
 
-**Known issues**
-- Godot was unavailable during implementation: runtime tests have not been executed.
-- Routes require clear straight segments. No navigation around obstacles.
-- Investigation watches the last seen position, then returns to patrol after suspicion drains.
-- Debug 0 resets AI and game flags, not all level objects/player position; reload for a fresh run.
+**Validation**
+- Executed using Godot 4.7.2: integration test reports 0 failures.
+- Physical traversal around the column is tested, along with hearing, distractions, search, sentry behavior, panel reaction, scanning, reset and results.
+- Main scene ran headlessly for 600 frames without runtime errors.
+- Visual balance and browser performance still require playtesting.
+
+**Limitations**
+- Navigation bounds are configured on the Navigation node. Rebuild after changing static geometry; moving obstacles are not replanned automatically.
+- Sound uses a reduced radius behind walls, not acoustic pathfinding.
+- Debug 0 resets flags/AI/coins, not the entire level; F8/F5 gives a fresh run.
 
 ---
 

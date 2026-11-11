@@ -3,6 +3,7 @@ extends Node
 
 enum State { MENU, PLAYING, PAUSED, WON, LOST }
 
+signal noise_emitted(position: Vector2, radius: float, kind: String)
 signal run_reset
 signal state_changed(new_state: State)
 signal panel_disabled
@@ -151,9 +152,22 @@ func _unhandled_input(event: InputEvent) -> void:
 func _connect_debug_log() -> void:
 	for sig in get_script().get_script_signal_list():
 		var sig_name: String = sig.name
+		if sig_name == "noise_emitted":
+			continue
 		if sig.args.is_empty():
 			connect(sig_name, func(): print("[GameManager] ", sig_name))
 		elif sig_name == "state_changed":
 			connect(sig_name, func(s): print("[GameManager] state -> ", State.keys()[s]))
 		else:
 			connect(sig_name, func(arg): print("[GameManager] ", sig_name, ": ", arg))
+
+func emit_noise(position: Vector2, radius: float, kind: String) -> void:
+	if state != State.PLAYING:
+		return
+	noise_emitted.emit(position, radius, kind)
+	var ring := Node2D.new()
+	ring.set_script(preload("res://scripts/noise_ring.gd"))
+	ring.radius = radius
+	ring.coin = kind == "coin"
+	get_tree().current_scene.add_child(ring)
+	ring.global_position = position
