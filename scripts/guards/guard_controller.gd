@@ -19,7 +19,8 @@ var _last_visible: bool = false
 @export var patrol_speed: float = 80.0
 @export var investigate_speed: float = 110.0
 @export var chase_speed: float = 185.0
-@export var approach_distance: float = 55.0
+@export var approach_distance: float = 40.0
+@export_range(1.0, 100.0) var catch_distance: float = 50.0
 @export var vision_range: float = 280.0
 @export_range(1, 179) var vision_angle: float = 60.0
 @export var detection_near: float = 65.0
@@ -87,6 +88,8 @@ func _physics_process(delta: float) -> void:
 		return
 	if not is_instance_valid(_player):
 		_player = get_tree().get_first_node_in_group("player") as Node2D
+	if _try_catch_player():
+		return
 	_path_timer -= delta
 	_notice_time -= delta
 	var visible_player := can_see_player()
@@ -115,7 +118,7 @@ func _physics_process(delta: float) -> void:
 		State.INVESTIGATE:
 			# Memory is updated only by actual line of sight, never through cover.
 			var distance := global_position.distance_to(_last_seen)
-			var stop_distance := approach_distance if visible_player else 6.0
+			var stop_distance := minf(approach_distance, catch_distance * 0.8) if visible_player else 6.0
 			if distance > 1.0:
 				look_at(_last_seen)
 			if role == Role.SENTRY and _interest_priority < 3:
@@ -133,6 +136,8 @@ func _physics_process(delta: float) -> void:
 	var previous_position := global_position
 	var intended_speed := velocity.length()
 	move_and_slide()
+	if _try_catch_player():
+		return
 	if state == State.INVESTIGATE and not visible_player and intended_speed > 0.0:
 		if global_position.distance_to(previous_position) < intended_speed * delta * 0.1:
 			_blocked_time += delta
@@ -286,3 +291,19 @@ func _update_cone() -> void:
 		vertices.append(to_local(sight.get_collision_point()) if sight.is_colliding() else sight.target_position)
 	cone.polygon = vertices
 	cone.color = Color(1.0, 0.25, 0.1, 0.3) if suspicion > 0.0 else Color(1.0, 0.85, 0.2, 0.22)
+
+func _try_catch_player() -> bool:
+	if GameManager.state != GameManager.State.PLAYING or not is_instance_valid(_player):
+		return false
+	if global_position.distance_to(_player.global_position) > catch_distance:
+		return false
+	# Contact distance works in every direction, but never through walls.
+	var query := PhysicsRayQueryParameters2D.create(global_position, _player.global_position, 1)
+	if not get_world_2d().direct_space_state.intersect_ray(query).is_empty():
+		return false
+	state = State.ALARM
+	velocity = Vector2.ZERO
+	_notice.text = "! Caught"
+	_notice.global_position = global_position + Vector2(-35, -55)
+	GameManager.lose("caught")
+	return true

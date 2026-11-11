@@ -41,6 +41,7 @@ What's done, how to use it, what's broken. One section per area.
 
 **Done**
 - Patrol, vision, distance-based suspicion, last-seen pursuit and local search.
+- Instant close-contact defeat at 50 px center distance, blocked by walls and independent of suspicion; tested with defeat HUD and terminal-state protection.
 - Fresh audible footsteps redirect ongoing search, including sounds behind the guard; current visual contact still takes priority.
 - Speeds: patrol 80, investigation 110, visible-player chase 185 px/s. Suspicion rates unchanged.
 - Grid navigation with body clearance around static world collisions.

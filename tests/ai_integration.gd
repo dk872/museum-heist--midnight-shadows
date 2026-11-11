@@ -73,6 +73,7 @@ func _ready() -> void:
 	check(detour, "Route gives the column clearance")
 	guard.reset_guard()
 	guard.global_position = Vector2(0, 320)
+	player.global_position = Vector2(-500, -300)
 	guard.vision_range = 0.0
 	guard.investigate_speed = 240.0
 	guard._set_interest(Vector2(0, 40), 3, "test")
@@ -154,5 +155,35 @@ func _ready() -> void:
 	await get_tree().physics_frame
 	check(GameManager.state == GameManager.State.WON, "Victory transition")
 	check(world.get_node("HUD/Root/Result").text == "Heist complete!", "Victory HUD")
+	GameManager.reset()
+	guard.global_position = Vector2(-240, 320)
+	guard.rotation = PI
+	player.global_position = Vector2(-189, 320)
+	await get_tree().physics_frame
+	await get_tree().physics_frame
+	check(not guard._try_catch_player(), "Outside catch radius remains safe")
+	player.global_position = Vector2(-192, 320)
+	var wall := StaticBody2D.new()
+	wall.position = Vector2(-216, 320)
+	var collision := CollisionShape2D.new()
+	var rectangle := RectangleShape2D.new()
+	rectangle.size = Vector2(4, 100)
+	collision.shape = rectangle
+	wall.add_child(collision)
+	add_child(wall)
+	await get_tree().physics_frame
+	await get_tree().physics_frame
+	check(not guard._try_catch_player(), "Nearby player cannot be caught through a wall")
+	wall.queue_free()
+	await get_tree().physics_frame
+	await get_tree().physics_frame
+	guard._physics_process(1.0 / 60.0)
+	check(GameManager.state == GameManager.State.LOST and guard.suspicion == 0.0, "Close contact catches immediately even behind guard at zero suspicion")
+	check(world.get_node("HUD/Root/Result").text == "Caught!", "Contact catch displays defeat HUD")
+	GameManager.reset()
+	guard.global_position = Vector2(-240, 320)
+	player.global_position = Vector2(-192, 320)
+	GameManager.win()
+	check(not guard._try_catch_player() and GameManager.state == GameManager.State.WON, "Contact cannot overwrite victory")
 	print("AI integration failures: ", failures)
 	get_tree().quit(1 if failures else 0)
