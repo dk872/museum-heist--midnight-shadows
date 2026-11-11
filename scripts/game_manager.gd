@@ -3,6 +3,7 @@ extends Node
 
 enum State { MENU, PLAYING, PAUSED, WON, LOST }
 
+signal run_reset
 signal state_changed(new_state: State)
 signal panel_disabled
 signal artifact_taken
@@ -40,6 +41,22 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if state == State.PLAYING:
 		level_time += delta
+
+
+# Each guard owns its suspicion. The HUD displays the highest value, so a
+# second guard cannot erase detection accumulated by the first.
+func _physics_process(_delta: float) -> void:
+	if state != State.PLAYING:
+		return
+	var value := 0.0
+	for guard in get_tree().get_nodes_in_group("guards"):
+		value = maxf(value, guard.suspicion)
+	if not is_equal_approx(value, suspicion):
+		suspicion = value
+		max_suspicion = maxf(max_suspicion, suspicion)
+		suspicion_changed.emit(suspicion)
+	if suspicion >= 100.0:
+		lose("detected")
 
 
 func on_panel_disabled() -> void:
@@ -94,6 +111,7 @@ func reset() -> void:
 	_set_state(State.PLAYING)
 	suspicion_changed.emit(suspicion)
 	_set_objective("panel")
+	run_reset.emit()
 
 
 func _set_has_artifact(value: bool) -> void:

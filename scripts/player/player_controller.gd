@@ -7,6 +7,9 @@ extends CharacterBody2D
 @onready var interaction_area = $InteractionArea
 
 func _physics_process(_delta: float) -> void:
+	if GameManager.state != GameManager.State.PLAYING:
+		velocity = Vector2.ZERO
+		return
 	look_at(get_global_mouse_position())
 
 	var current_speed = normal_speed
@@ -19,6 +22,8 @@ func _physics_process(_delta: float) -> void:
 
 # Using _unhandled_input for single presses (so it doesn't trigger 60 times a second)
 func _unhandled_input(event: InputEvent) -> void:
+	if GameManager.state != GameManager.State.PLAYING:
+		return
 	if event.is_action_pressed("interact"):
 		_try_interact(true) # Button pressed
 	elif event.is_action_released("interact"):

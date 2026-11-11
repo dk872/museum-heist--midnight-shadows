@@ -7,10 +7,14 @@ extends CanvasLayer
 @onready var message_label: Label = $Root/Message
 @onready var result_label: Label = $Root/Result
 
+@onready var detection_bar: ProgressBar = $Root/Detection
+
 var _message_tween: Tween
 
 
 func _ready() -> void:
+	GameManager.suspicion_changed.connect(_on_suspicion_changed)
+	_on_suspicion_changed(GameManager.suspicion)
 	GameManager.objective_changed.connect(_on_objective_changed)
 	GameManager.message.connect(_on_message)
 	GameManager.state_changed.connect(_on_state_changed)
@@ -50,3 +54,7 @@ func _show_result(text: String, color: Color) -> void:
 	result_label.text = text
 	result_label.add_theme_color_override("font_color", color)
 	result_label.visible = true
+
+func _on_suspicion_changed(value: float) -> void:
+	detection_bar.value = value
+	detection_bar.modulate = Color(1, 0.85, 0.2).lerp(Color(1, 0.2, 0.15), value / 100.0)

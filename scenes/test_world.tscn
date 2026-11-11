@@ -6,6 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://fc3wse83byun" path="res://scenes/exit_zone.tscn" id="4_umbte"]
 [ext_resource type="PackedScene" path="res://ui/hud/hud.tscn" id="5_hud"]
 
+[ext_resource type="PackedScene" path="res://scenes/characters/guard.tscn" id="6_guard"]
+
+[sub_resource type="RectangleShape2D" id="Cover"]
+size = Vector2(60, 110)
+
 [node name="TestWorld" type="Node2D" unique_id=1453359172]
 
 [node name="Player" parent="." unique_id=1177765463 instance=ExtResource("1_kyfjp")]
@@ -21,3 +26,18 @@ position = Vector2(98, 79)
 position = Vector2(79, 222)
 
 [node name="HUD" parent="." instance=ExtResource("5_hud")]
+
+[node name="Guard" parent="." instance=ExtResource("6_guard")]
+position = Vector2(-160, 320)
+
+[node name="Column" type="StaticBody2D" parent="."]
+position = Vector2(0, 170)
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Column"]
+shape = SubResource("Cover")
+
+[node name="Visual" type="Polygon2D" parent="Column"]
+polygon = PackedVector2Array(-30, -55, 30, -55, 30, 55, -30, 55)
+color = Color(0.32, 0.38, 0.46, 1)
