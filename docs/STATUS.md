@@ -41,6 +41,8 @@ What's done, how to use it, what's broken. One section per area.
 
 **Done**
 - Patrol, vision, distance-based suspicion, last-seen pursuit and local search.
+- Fresh audible footsteps redirect ongoing search, including sounds behind the guard; current visual contact still takes priority.
+- Speeds: patrol 80, investigation 110, visible-player chase 185 px/s. Suspicion rates unchanged.
 - Grid navigation with body clearance around static world collisions.
 - Walking/sneaking noise, three Q-key coin distractions and visible sound rings.
 - Patroller and sentry roles, panel investigation, status labels and periodic scans.
@@ -51,7 +53,7 @@ What's done, how to use it, what's broken. One section per area.
 - F5 starts the demo; F6 on `tests/ai_integration.tscn` runs regression checks.
 
 **Validation**
-- Executed using Godot 4.7.2: integration test reports 0 failures.
+- Executed using Godot 4.7.2: integration test reports 0 failures, including rear footsteps during search, quiet footsteps out of range, visual priority and separate movement speeds.
 - Physical traversal around the column is tested, along with hearing, distractions, search, sentry behavior, panel reaction, scanning, reset and results.
 - Main scene ran headlessly for 600 frames without runtime errors.
 - Visual balance and browser performance still require playtesting.

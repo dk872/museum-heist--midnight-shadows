@@ -17,7 +17,8 @@ var _last_visible: bool = false
 
 @export var patrol_points := PackedVector2Array([Vector2.ZERO, Vector2(260, 0)])
 @export var patrol_speed: float = 80.0
-@export var investigate_speed: float = 60.0
+@export var investigate_speed: float = 110.0
+@export var chase_speed: float = 185.0
 @export var approach_distance: float = 55.0
 @export var vision_range: float = 280.0
 @export_range(1, 179) var vision_angle: float = 60.0
@@ -122,7 +123,7 @@ func _physics_process(delta: float) -> void:
 				if _search_time <= 0.0:
 					_finish_search()
 			elif distance > stop_distance and _blocked_time < 2.0:
-				_move_toward(_last_seen, investigate_speed, delta, stop_distance)
+				_move_toward(_last_seen, chase_speed if visible_player else investigate_speed, delta, stop_distance)
 			elif not visible_player:
 				# Search time starts on arrival, not when the player disappears.
 				_search_time -= delta
@@ -219,7 +220,8 @@ func _hear_noise(position: Vector2, radius: float, kind: String) -> void:
 	var query := PhysicsRayQueryParameters2D.create(global_position, position, 1)
 	if not get_world_2d().direct_space_state.intersect_ray(query).is_empty() and global_position.distance_to(position) > radius * 0.5:
 		return
-	_set_interest(position, 2 if kind == "coin" else 1, "? Coin!" if kind == "coin" else "? Footsteps")
+	# Fresh footsteps are a new lead while searching, even after visual contact.
+	_set_interest(position, 2 if kind == "coin" else 1, "? Coin!" if kind == "coin" else "? Footsteps", kind == "footstep")
 
 func _check_panel() -> void:
 	if role != Role.PATROLLER:
@@ -228,8 +230,11 @@ func _check_panel() -> void:
 	if panel:
 		_set_interest(panel.global_position, 2, "? Power off!")
 
-func _set_interest(position: Vector2, priority: int, text: String) -> void:
-	if _last_visible or priority < _interest_priority:
+func _set_interest(position: Vector2, priority: int, text: String, fresh_footsteps: bool = false) -> void:
+	# Check current sight: the player may have moved since our physics tick.
+	if can_see_player():
+		return
+	if priority < _interest_priority and not (fresh_footsteps and state == State.INVESTIGATE):
 		return
 	state = State.INVESTIGATE
 	_interest_priority = priority

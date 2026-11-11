@@ -35,7 +35,7 @@ func _ready() -> void:
 	guard.rotation = -PI / 2.0
 	guard._physics_process(0.1)
 	check(guard.state == guard.State.INVESTIGATE and guard.suspicion > 0.0, "Detection starts investigation")
-	check(guard.velocity.length() > 0.0 and guard.velocity.length() <= guard.investigate_speed, "Guard approaches slowly")
+	check(guard.velocity.length() > 0.0 and guard.velocity.length() <= guard.chase_speed, "Guard chases within chase speed limit")
 	var remembered_position: Vector2 = guard._last_seen
 	player.global_position = Vector2(0, 80)
 	await get_tree().physics_frame
@@ -85,7 +85,7 @@ func _ready() -> void:
 			break
 	check(reached, "Guard physically walks around column to remembered position")
 	guard.vision_range = 280.0
-	guard.investigate_speed = 60.0
+	guard.investigate_speed = 110.0
 	guard.reset_guard()
 	GameManager.emit_noise(guard.global_position + Vector2(70, 0), 35.0, "footstep")
 	check(guard.state == guard.State.PATROL, "Sneaking cannot be heard at 70 px")
@@ -93,6 +93,34 @@ func _ready() -> void:
 	check(guard.state == guard.State.INVESTIGATE, "Walking can be heard at 70 px")
 	GameManager.emit_noise(guard.global_position + Vector2(100, 0), 240.0, "coin")
 	check(guard._interest_priority == 2, "Coin takes priority over footsteps")
+	# Reproduce searching with remembered visual contact and footsteps behind.
+	guard.reset_guard()
+	guard.global_position = Vector2(-240, 320)
+	guard.rotation = 0.0
+	player.global_position = Vector2(-320, 320)
+	await get_tree().physics_frame
+	await get_tree().physics_frame
+	guard._set_interest(Vector2(-100, 320), 3, "? Searching")
+	var old_target: Vector2 = guard._last_seen
+	GameManager.emit_noise(player.global_position, 35.0, "footstep")
+	check(guard._last_seen == old_target, "Quiet steps outside hearing range do not redirect search")
+	GameManager.emit_noise(player.global_position, 150.0, "footstep")
+	check(guard._last_seen == player.global_position, "Audible steps behind redirect visual-memory search")
+	guard._physics_process(1.0 / 60.0)
+	check(guard.velocity.x < 0.0 and is_equal_approx(guard.velocity.length(), 110.0), "Guard investigates new steps at 110 px per second")
+	# Move the visible player ahead, with sufficient distance to reach full speed.
+	player.global_position = Vector2(-420, 320)
+	await get_tree().physics_frame
+	await get_tree().physics_frame
+	guard._physics_process(1.0 / 60.0)
+	check(is_equal_approx(guard.velocity.length(), 185.0), "Visible player is chased at 185 px per second")
+	var visual_target: Vector2 = guard._last_seen
+	GameManager.emit_noise(guard.global_position + Vector2(0, 60), 150.0, "footstep")
+	GameManager.emit_noise(guard.global_position + Vector2(0, 60), 240.0, "coin")
+	check(guard._last_seen == visual_target, "Visible player takes priority over footsteps and coins")
+	player.global_position = Vector2(0, 80)
+	await get_tree().physics_frame
+	await get_tree().physics_frame
 	guard._next_search_point()
 	check(guard._search_step == 1 and guard._last_seen != guard._search_center, "Search explores neighboring points")
 	guard._next_search_point()
