@@ -20,7 +20,7 @@ const OBJECTIVES := {
 	"exit": "Escape through the emergency exit",
 }
 
-# Debug builds only. Keys: 1 panel, 2 artifact, 3 win, 4 lose, 0 reset.
+# Debug builds only. Keys: 1 panel, 2 artifact, 3 win, 4 lose, 0 restart level.
 var log_signals: bool = true
 var debug_keys: bool = true
 
@@ -102,6 +102,12 @@ func set_paused(paused: bool) -> void:
 		_set_state(State.PLAYING)
 
 
+## Menu scenes call this. Un-pauses and sets MENU; level_time stops counting.
+func enter_menu() -> void:
+	get_tree().paused = false
+	_set_state(State.MENU)
+
+
 func reset() -> void:
 	get_tree().paused = false
 	has_artifact = false
@@ -146,7 +152,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		KEY_2: on_artifact_taken()
 		KEY_3: win()
 		KEY_4: lose("debug")
-		KEY_0: reset()
+		KEY_0: SceneManager.restart_level()
 
 
 func _connect_debug_log() -> void:

@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://b3ks1lf8xj5by"]
+
+[ext_resource type="Script" uid="uid://c1s0pfqi5ccxx" path="res://ui/screens/result_screen.gd" id="1_result"]
+
+[node name="ResultScreen" type="CanvasLayer" unique_id=667130711]
+process_mode = 3
+layer = 20
+visible = false
+script = ExtResource("1_result")
+
+[node name="Root" type="Control" parent="." unique_id=914564302]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dim" type="ColorRect" parent="Root" unique_id=1617328235]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.65)
+
+[node name="Panel" type="PanelContainer" parent="Root" unique_id=959432819]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Root/Panel" unique_id=958688163]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Root/Panel/VBox" unique_id=250851435]
+layout_mode = 2
+theme_override_font_sizes/font_size = 44
+text = "Heist complete!"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="Root/Panel/VBox" unique_id=898309900]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Subtitle"
+horizontal_alignment = 1
+
+[node name="Stats" type="Label" parent="Root/Panel/VBox" unique_id=569003329]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Time 00:00  ·  Max detection 0%"
+horizontal_alignment = 1
+
+[node name="Buttons" type="HBoxContainer" parent="Root/Panel/VBox" unique_id=492893736]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="NextButton" type="Button" parent="Root/Panel/VBox/Buttons" unique_id=581428031]
+custom_minimum_size = Vector2(160, 44)
+layout_mode = 2
+text = "Next level"
+
+[node name="RestartButton" type="Button" parent="Root/Panel/VBox/Buttons" unique_id=309281005]
+custom_minimum_size = Vector2(160, 44)
+layout_mode = 2
+text = "Restart"
+
+[node name="MenuButton" type="Button" parent="Root/Panel/VBox/Buttons"]
+custom_minimum_size = Vector2(160, 44)
+layout_mode = 2
+text = "Main menu"

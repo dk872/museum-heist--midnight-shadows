@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="Museum Heist: Midnight Shadows"
-run/main_scene="res://scenes/test_world.tscn"
+run/main_scene="res://ui/screens/main_menu.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 GameManager="*res://scripts/game_manager.gd"
+SceneManager="*res://systems/scene_manager.gd"
 
 [display]
 

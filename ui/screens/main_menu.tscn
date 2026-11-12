@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://beu0proot4f06"]
+
+[ext_resource type="Script" uid="uid://d30ece7q50nkq" path="res://ui/screens/main_menu.gd" id="1_menu"]
+
+[node name="MainMenu" type="Control" unique_id=680451608]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_menu")
+
+[node name="Background" type="ColorRect" parent="." unique_id=326407065]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.07, 0.09, 0.14, 1)
+
+[node name="Center" type="CenterContainer" parent="." unique_id=495397272]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Center" unique_id=1584173247]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Title" type="Label" parent="Center/VBox" unique_id=460122652]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.3, 1)
+theme_override_font_sizes/font_size = 56
+text = "Museum Heist"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="Center/VBox" unique_id=967740513]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.8, 0.9, 1)
+theme_override_font_sizes/font_size = 24
+text = "Midnight Shadows"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="Center/VBox" unique_id=1999541140]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+
+[node name="PlayButton" type="Button" parent="Center/VBox" unique_id=13576299]
+custom_minimum_size = Vector2(220, 48)
+layout_mode = 2
+text = "Play"
+
+[node name="Hint" type="Label" parent="Center/VBox" unique_id=385565528]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.65, 0.75, 1)
+theme_override_font_sizes/font_size = 14
+text = "WASD move · Shift sneak · E interact · Q coin · Esc pause"
+horizontal_alignment = 1
