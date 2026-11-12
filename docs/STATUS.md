@@ -19,7 +19,9 @@ What's done, how to use it, what's broken. One section per area.
 
 **Done**
 - `GameManager` (autoload, `scripts/game_manager.gd`): game state, signals, win/lose, objectives.
-- HUD (`ui/hud/hud.tscn`): current objective (top left), short messages (bottom centre) and a temporary result text ("Heist complete!" / "Caught!") in the centre. Instanced in `test_world`.
+- HUD (`ui/hud/hud.tscn`): current objective (top left), short messages (bottom centre). Instanced in `test_world`. The temporary centre result text is gone.
+- `SceneManager` (autoload, `systems/scene_manager.gd`): owns the level list and scene changes — `start_level(id)`, `restart_level()`, `next_level()`/`has_next_level()` (via `LEVEL_ORDER`), `go_to_menu()` (menu arrives in the next commit).
+- Result screen (`ui/screens/result_screen.tscn`): full-screen overlay on win/lose with title, reason, Time / Max detection stats, a working **Restart** button and a **Next level** button (shown on a win only when a next level exists — hidden for now with one level). Instanced in `test_world` next to the HUD.
 
 **How to use**
 - Player caught → `GameManager.lose("detected")`. Reached the goal → `GameManager.win()`. Only the first call per run counts.
@@ -27,13 +29,12 @@ What's done, how to use it, what's broken. One section per area.
 - React to the game → connect to signals: `state_changed`, `panel_disabled`, `artifact_taken`, `objective_changed`, `message`, `suspicion_changed`, `game_won`, `game_lost(reason)`.
 - Read state → `GameManager.state` (`MENU / PLAYING / PAUSED / WON / LOST`), `has_artifact`, `panel_is_disabled`, `level_time`, `suspicion`.
 - Pause → `GameManager.set_paused(true/false)`, not `get_tree().paused`.
-- New level → add an instance of `ui/hud/hud.tscn`.
-- Debug builds: keys **1** panel, **2** artifact, **3** win, **4** lose, **0** reset. Prints every signal to Output.
+- New level → add an instance of `ui/hud/hud.tscn` and `ui/screens/result_screen.tscn`, and add the level to `SceneManager.LEVELS` and `LEVEL_ORDER` (one line each).
+- Change scenes / restart → always through `SceneManager` (`restart_level()` etc.), never hardcode scene paths.
+- Debug builds: keys **1** panel, **2** artifact, **3** win, **4** lose, **0** restart level. Prints every signal to Output.
 
-**Known issues / next**
-- No real Game Over / Victory screens yet. The HUD shows a temporary result text; there's no restart button. Player and guards now stop after a result.
-- Detection meter and AI suspicion integration added by Maria; runtime verification pending.
-- Next: end screens + restart, detection meter, pause, main menu, audio.
+**Known issues**
+- `go_to_menu()` only warns until the main menu exists.
 
 ---
 
@@ -62,7 +63,6 @@ What's done, how to use it, what's broken. One section per area.
 **Limitations**
 - Navigation bounds are configured on the Navigation node. Rebuild after changing static geometry; moving obstacles are not replanned automatically.
 - Sound uses a reduced radius behind walls, not acoustic pathfinding.
-- Debug 0 resets flags/AI/coins, not the entire level; F8/F5 gives a fresh run.
 
 ---
 

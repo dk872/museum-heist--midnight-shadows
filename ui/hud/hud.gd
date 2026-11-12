@@ -5,8 +5,6 @@ extends CanvasLayer
 
 @onready var objective_label: Label = $Root/Objective
 @onready var message_label: Label = $Root/Message
-@onready var result_label: Label = $Root/Result
-
 @onready var detection_bar: ProgressBar = $Root/Detection
 
 var _message_tween: Tween
@@ -36,24 +34,14 @@ func _on_message(text: String) -> void:
 	_message_tween.tween_property(message_label, "modulate:a", 0.0, message_fade)
 
 
-# Temporary until the Game Over / Victory screens exist.
+# The ResultScreen overlay shows the result; the HUD only hides its own labels.
 func _on_state_changed(state: GameManager.State) -> void:
 	match state:
-		GameManager.State.WON:
-			_show_result("Heist complete!", Color(1, 0.84, 0.3))
-		GameManager.State.LOST:
-			_show_result("Caught!", Color(0.95, 0.25, 0.25))
+		GameManager.State.WON, GameManager.State.LOST:
+			objective_label.visible = false
+			message_label.modulate.a = 0.0
 		GameManager.State.PLAYING:
-			result_label.visible = false
 			objective_label.visible = true
-
-
-func _show_result(text: String, color: Color) -> void:
-	objective_label.visible = false
-	message_label.modulate.a = 0.0
-	result_label.text = text
-	result_label.add_theme_color_override("font_color", color)
-	result_label.visible = true
 
 func _on_suspicion_changed(value: float) -> void:
 	detection_bar.value = value
