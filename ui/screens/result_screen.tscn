@@ -73,3 +73,8 @@ text = "Next level"
 custom_minimum_size = Vector2(160, 44)
 layout_mode = 2
 text = "Restart"
+
+[node name="MenuButton" type="Button" parent="Root/Panel/VBox/Buttons"]
+custom_minimum_size = Vector2(160, 44)
+layout_mode = 2
+text = "Main menu"

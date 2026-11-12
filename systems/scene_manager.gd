@@ -5,7 +5,7 @@ const LEVELS := {
 	"tutorial": "res://scenes/test_world.tscn",   # Katya's real level replaces this later
 }
 const LEVEL_ORDER := ["tutorial"]   # "master" gets appended when Katya's level lands
-const MENU_SCENE := "res://ui/screens/main_menu.tscn"   # arrives in commit 2
+const MENU_SCENE := "res://ui/screens/main_menu.tscn"
 
 var current_level_id: String = "tutorial"
 
@@ -39,11 +39,8 @@ func next_level() -> void:
 
 
 func go_to_menu() -> void:
-	if ResourceLoader.exists(MENU_SCENE):
-		GameManager.reset()
-		_change_scene_deferred.call_deferred(MENU_SCENE)
-	else:
-		push_warning("Main menu not implemented yet")
+	GameManager.enter_menu()
+	_change_scene_deferred.call_deferred(MENU_SCENE)
 
 
 func _change_scene_deferred(path: String) -> void:

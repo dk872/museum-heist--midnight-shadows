@@ -20,8 +20,10 @@ What's done, how to use it, what's broken. One section per area.
 **Done**
 - `GameManager` (autoload, `scripts/game_manager.gd`): game state, signals, win/lose, objectives.
 - HUD (`ui/hud/hud.tscn`): current objective (top left), short messages (bottom centre). Instanced in `test_world`. The temporary centre result text is gone.
-- `SceneManager` (autoload, `systems/scene_manager.gd`): owns the level list and scene changes — `start_level(id)`, `restart_level()`, `next_level()`/`has_next_level()` (via `LEVEL_ORDER`), `go_to_menu()` (menu arrives in the next commit).
-- Result screen (`ui/screens/result_screen.tscn`): full-screen overlay on win/lose with title, reason, Time / Max detection stats, a working **Restart** button and a **Next level** button (shown on a win only when a next level exists — hidden for now with one level). Instanced in `test_world` next to the HUD.
+- `SceneManager` (autoload, `systems/scene_manager.gd`): owns the level list and scene changes — `start_level(id)`, `restart_level()`, `next_level()`/`has_next_level()` (via `LEVEL_ORDER`), `go_to_menu()`.
+- Result screen (`ui/screens/result_screen.tscn`): full-screen overlay on win/lose with title, reason, Time / Max detection stats, a working **Restart** button and a **Next level** button (shown on a win only when a next level exists — hidden for now with one level) and a **Main menu** button. Instanced in `test_world` next to the HUD.
+- Main menu (`ui/screens/main_menu.tscn`): title + Play + controls hint; now the project's main scene, so F5 starts in the menu. Play starts the first level in `LEVEL_ORDER`. No Quit button — the game targets Web only. Running a level scene directly with F6 still works (GameManager boots into PLAYING).
+- `GameManager.enter_menu()`: menu scenes call it in `_ready()`; un-pauses and sets `MENU` so `level_time` stops counting.
 
 **How to use**
 - Player caught → `GameManager.lose("detected")`. Reached the goal → `GameManager.win()`. Only the first call per run counts.
@@ -34,7 +36,7 @@ What's done, how to use it, what's broken. One section per area.
 - Debug builds: keys **1** panel, **2** artifact, **3** win, **4** lose, **0** restart level. Prints every signal to Output.
 
 **Known issues**
-- `go_to_menu()` only warns until the main menu exists.
+- None currently.
 
 ---
 

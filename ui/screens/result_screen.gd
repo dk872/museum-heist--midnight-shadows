@@ -12,6 +12,7 @@ const LOSE_REASONS := {
 @onready var stats_label: Label = $Root/Panel/VBox/Stats
 @onready var next_button: Button = $Root/Panel/VBox/Buttons/NextButton
 @onready var restart_button: Button = $Root/Panel/VBox/Buttons/RestartButton
+@onready var menu_button: Button = $Root/Panel/VBox/Buttons/MenuButton
 
 
 func _ready() -> void:
@@ -21,6 +22,7 @@ func _ready() -> void:
 	GameManager.game_lost.connect(_on_game_lost)
 	next_button.pressed.connect(_on_next_pressed)
 	restart_button.pressed.connect(_on_restart_pressed)
+	menu_button.pressed.connect(_on_menu_pressed)
 
 
 func _on_game_won() -> void:
@@ -59,6 +61,11 @@ func _on_next_pressed() -> void:
 func _on_restart_pressed() -> void:
 	visible = false
 	SceneManager.restart_level()
+
+
+func _on_menu_pressed() -> void:
+	visible = false
+	SceneManager.go_to_menu()
 
 
 func _format_time(seconds: float) -> String:

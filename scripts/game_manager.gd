@@ -102,6 +102,12 @@ func set_paused(paused: bool) -> void:
 		_set_state(State.PLAYING)
 
 
+## Menu scenes call this. Un-pauses and sets MENU; level_time stops counting.
+func enter_menu() -> void:
+	get_tree().paused = false
+	_set_state(State.MENU)
+
+
 func reset() -> void:
 	get_tree().paused = false
 	has_artifact = false
