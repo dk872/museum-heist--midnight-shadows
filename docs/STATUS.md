@@ -24,6 +24,8 @@ What's done, how to use it, what's broken. One section per area.
 - Result screen (`ui/screens/result_screen.tscn`): full-screen overlay on win/lose with title, reason, Time / Max detection stats, a working **Restart** button and a **Next level** button (shown on a win only when a next level exists — hidden for now with one level) and a **Main menu** button. Instanced in `test_world` next to the HUD.
 - Main menu (`ui/screens/main_menu.tscn`): title + Play + controls hint; now the project's main scene, so F5 starts in the menu. Play starts the first level in `LEVEL_ORDER`. No Quit button — the game targets Web only. Running a level scene directly with F6 still works (GameManager boots into PLAYING).
 - `GameManager.enter_menu()`: menu scenes call it in `_ready()`; un-pauses and sets `MENU` so `level_time` stops counting.
+- Shared UI theme (`ui/theme/main_theme.tres`, registered as the project theme in `project.godot`): "noir tech" palette (night `#0E1218`, steel panels `#2A3545`, edge `#5B7090`, text `#DCE6F2`, muted `#8A9BB3`, amber `#F5A623`, red `#E5484D`), Barlow for body text, Chakra Petch for titles/captions/buttons (both OFL-licensed, `ui/theme/fonts/`). Applied to menu, HUD, result and pause screens.
+- Restyled HUD: OBJECTIVE caption + red marker, DETECTION steel panel with live percentage, TIME and COINS (dots) top right, messages bottom centre with an amber bar. Result screen: RUN REPORT header with level name (`SceneManager.level_name()`), three stat boxes (time / max detection / coins used). Coin counts are read from the Player node each frame — temporary until Dmytro exposes a coins signal.
 - Pause menu (`ui/screens/pause_menu.tscn`): Esc (`ui_cancel`) pauses with a dim overlay — Resume / Restart / Main menu, Resume focused; Esc again resumes. `process_mode` ALWAYS so it works while the tree is paused; visibility follows `state_changed`, so any pause source shows it. Esc does nothing on the result screen or in the menu. Instanced in `test_world`.
 
 **How to use**
@@ -34,6 +36,7 @@ What's done, how to use it, what's broken. One section per area.
 - Pause → `GameManager.set_paused(true/false)`, not `get_tree().paused`.
 - New level → add an instance of `ui/hud/hud.tscn`, `ui/screens/result_screen.tscn` and `ui/screens/pause_menu.tscn`, and add the level to `SceneManager.LEVELS` and `LEVEL_ORDER` (one line each).
 - Change scenes / restart → always through `SceneManager` (`restart_level()` etc.), never hardcode scene paths.
+- Styling UI → use `theme_type_variation` (`TitleLabel`, `HeadingLabel`, `CaptionLabel`, `MutedLabel`, `HintLabel`, `HudLabel`, `StatLabel`, `SteelPanel`), never per-node `theme_override_*` for fonts/colours.
 - Debug builds: keys **1** panel, **2** artifact, **3** win, **4** lose, **0** restart level. Prints every signal to Output.
 
 **Known issues**

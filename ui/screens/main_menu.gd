@@ -1,7 +1,7 @@
 extends Control
 ## Title screen. Play starts the first level in SceneManager.LEVEL_ORDER.
 
-@onready var play_button: Button = $Center/VBox/PlayButton
+@onready var play_button: Button = $Center/VBox/Buttons/PlayButton
 
 
 func _ready() -> void:

@@ -50,21 +50,21 @@ theme_override_constants/separation = 12
 
 [node name="Title" type="Label" parent="Root/Panel/Margin/VBox" unique_id=839061618]
 layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "Paused"
+theme_type_variation = &"TitleLabel"
+text = "PAUSED"
 horizontal_alignment = 1
 
 [node name="ResumeButton" type="Button" parent="Root/Panel/Margin/VBox" unique_id=221711303]
 custom_minimum_size = Vector2(200, 44)
 layout_mode = 2
-text = "Resume"
+text = "RESUME"
 
 [node name="RestartButton" type="Button" parent="Root/Panel/Margin/VBox" unique_id=1329239526]
 custom_minimum_size = Vector2(200, 44)
 layout_mode = 2
-text = "Restart"
+text = "RESTART"
 
 [node name="MenuButton" type="Button" parent="Root/Panel/Margin/VBox" unique_id=503175762]
 custom_minimum_size = Vector2(200, 44)
 layout_mode = 2
-text = "Main menu"
+text = "MAIN MENU"

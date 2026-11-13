@@ -1,12 +1,33 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://ba0v6uuroo3hj"]
 
-[ext_resource type="Script" path="res://ui/hud/hud.gd" id="1_hud"]
+[ext_resource type="Script" uid="uid://6dvpjea5i6cp" path="res://ui/hud/hud.gd" id="1_hud"]
 
-[node name="HUD" type="CanvasLayer"]
+[sub_resource type="StyleBoxFlat" id="marker_circle"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.898, 0.282, 0.302, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="message_panel"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.055, 0.071, 0.094, 0.88)
+border_width_left = 3
+border_color = Color(0.961, 0.651, 0.137, 1)
+
+[node name="HUD" type="CanvasLayer" unique_id=1208820919]
 layer = 10
 script = ExtResource("1_hud")
 
-[node name="Root" type="Control" parent="."]
+[node name="Root" type="Control" parent="." unique_id=1905340229]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,20 +36,120 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Objective" type="Label" parent="Root"]
+[node name="TopLeft" type="VBoxContainer" parent="Root" unique_id=1523046851]
 layout_mode = 1
 offset_left = 16.0
 offset_top = 16.0
-offset_right = 616.0
-offset_bottom = 48.0
+offset_right = 316.0
+offset_bottom = 160.0
 mouse_filter = 2
-theme_override_colors/font_color = Color(1, 0.84, 0.4, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 6
-theme_override_font_sizes/font_size = 22
-text = "Objective"
+theme_override_constants/separation = 6
 
-[node name="Message" type="Label" parent="Root"]
+[node name="ObjectiveCaption" type="Label" parent="Root/TopLeft" unique_id=595694219]
+layout_mode = 2
+theme_type_variation = &"CaptionLabel"
+text = "OBJECTIVE"
+
+[node name="ObjectiveRow" type="HBoxContainer" parent="Root/TopLeft" unique_id=278299648]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Marker" type="Panel" parent="Root/TopLeft/ObjectiveRow" unique_id=85761178]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_styles/panel = SubResource("marker_circle")
+
+[node name="Objective" type="Label" parent="Root/TopLeft/ObjectiveRow" unique_id=352845484]
+layout_mode = 2
+theme_type_variation = &"HudLabel"
+
+[node name="DetectionRow" type="HBoxContainer" parent="Root/TopLeft" unique_id=268437047]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="DetectionCaption" type="Label" parent="Root/TopLeft/DetectionRow" unique_id=894548691]
+layout_mode = 2
+theme_type_variation = &"CaptionLabel"
+text = "DETECTION"
+vertical_alignment = 1
+
+[node name="Detection" type="ProgressBar" parent="Root/TopLeft/DetectionRow" unique_id=1912653288]
+custom_minimum_size = Vector2(160, 8)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+show_percentage = false
+
+[node name="DetectionPercent" type="Label" parent="Root/TopLeft/DetectionRow" unique_id=489205231]
+custom_minimum_size = Vector2(36, 0)
+layout_mode = 2
+theme_type_variation = &"CaptionLabel"
+theme_override_colors/font_color = Color(0.961, 0.651, 0.137, 1)
+text = "0%"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="TopRight" type="VBoxContainer" parent="Root" unique_id=1766666274]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -216.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 100.0
+grow_horizontal = 0
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="TimeRow" type="HBoxContainer" parent="Root/TopRight" unique_id=1262825886]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 2
+
+[node name="TimeCaption" type="Label" parent="Root/TopRight/TimeRow" unique_id=896590292]
+layout_mode = 2
+theme_type_variation = &"CaptionLabel"
+text = "TIME"
+vertical_alignment = 1
+
+[node name="TimeValue" type="Label" parent="Root/TopRight/TimeRow" unique_id=245273897]
+layout_mode = 2
+theme_type_variation = &"StatLabel"
+text = "00:00"
+
+[node name="CoinsRow" type="HBoxContainer" parent="Root/TopRight" unique_id=550587928]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 2
+
+[node name="CoinsCaption" type="Label" parent="Root/TopRight/CoinsRow" unique_id=99908213]
+layout_mode = 2
+theme_type_variation = &"CaptionLabel"
+text = "COINS"
+vertical_alignment = 1
+
+[node name="CoinDot1" type="Panel" parent="Root/TopRight/CoinsRow" unique_id=523532975]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="CoinDot2" type="Panel" parent="Root/TopRight/CoinsRow" unique_id=1844780348]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="CoinDot3" type="Panel" parent="Root/TopRight/CoinsRow" unique_id=1675995178]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="MessagePanel" type="Panel" parent="Root" unique_id=1470798837]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -36,23 +157,23 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -350.0
-offset_top = -88.0
+offset_top = -92.0
 offset_right = 350.0
 offset_bottom = -48.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 6
-theme_override_font_sizes/font_size = 20
-text = "Message"
-horizontal_alignment = 1
+theme_override_styles/panel = SubResource("message_panel")
 
-[node name="Detection" type="ProgressBar" parent="Root"]
+[node name="Message" type="Label" parent="Root/MessagePanel" unique_id=370854009]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 16.0
-offset_top = 56.0
-offset_right = 236.0
-offset_bottom = 82.0
-mouse_filter = 2
-max_value = 100.0
+offset_right = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"HudLabel"
+horizontal_alignment = 1
+vertical_alignment = 1

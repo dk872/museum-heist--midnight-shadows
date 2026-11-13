@@ -25,6 +25,10 @@ SceneManager="*res://systems/scene_manager.gd"
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[gui]
+
+theme/custom="res://ui/theme/main_theme.tres"
+
 [input]
 
 move_up={

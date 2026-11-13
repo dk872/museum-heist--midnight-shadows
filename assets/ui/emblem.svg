@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+<defs>
+<linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD277"/><stop offset="0.55" stop-color="#F5A623"/><stop offset="1" stop-color="#B8761A"/></linearGradient>
+<radialGradient id="gem" cx="0.4" cy="0.35" r="0.7"><stop offset="0" stop-color="#FFF1B8"/><stop offset="0.45" stop-color="#F2C14E"/><stop offset="1" stop-color="#9A5E12"/></radialGradient>
+</defs>
+<polygon points="64,6 122,64 64,122 6,64" fill="none" stroke="url(#gold)" stroke-width="5"/>
+<polygon points="64,22 106,64 64,106 22,64" fill="#13192A" stroke="#B8761A" stroke-width="1.5"/>
+<path d="M22 64 C40 36, 88 36, 106 64 C88 92, 40 92, 22 64 Z" fill="none" stroke="url(#gold)" stroke-width="5" stroke-linejoin="round"/>
+<circle cx="64" cy="64" r="19" fill="url(#gem)" stroke="#B8761A" stroke-width="2"/>
+<circle cx="64" cy="64" r="7" fill="#13192A"/>
+<circle cx="57" cy="56" r="3.5" fill="#FFF7DC"/>
+<path d="M70 90 L70 112 L84 112" fill="none" stroke="url(#gold)" stroke-width="5" stroke-linecap="square"/>
+<path d="M58 90 L48 118" fill="none" stroke="url(#gold)" stroke-width="5" stroke-linecap="square"/>
+</svg>

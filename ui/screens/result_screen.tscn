@@ -27,7 +27,7 @@ mouse_filter = 2
 color = Color(0, 0, 0, 0.65)
 
 [node name="Panel" type="PanelContainer" parent="Root" unique_id=959432819]
-custom_minimum_size = Vector2(420, 0)
+custom_minimum_size = Vector2(560, 0)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -41,22 +41,105 @@ grow_vertical = 2
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="Title" type="Label" parent="Root/Panel/VBox" unique_id=250851435]
+[node name="Header" type="PanelContainer" parent="Root/Panel/VBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 44
-text = "Heist complete!"
+theme_type_variation = &"SteelPanel"
+
+[node name="HeaderRow" type="HBoxContainer" parent="Root/Panel/VBox/Header"]
+layout_mode = 2
+
+[node name="ReportCaption" type="Label" parent="Root/Panel/VBox/Header/HeaderRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"CaptionLabel"
+text = "RUN REPORT"
+
+[node name="LevelName" type="Label" parent="Root/Panel/VBox/Header/HeaderRow"]
+layout_mode = 2
+theme_type_variation = &"CaptionLabel"
+text = "LEVEL"
+horizontal_alignment = 2
+
+[node name="TitleBlock" type="VBoxContainer" parent="Root/Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Title" type="Label" parent="Root/Panel/VBox/TitleBlock" unique_id=250851435]
+layout_mode = 2
+theme_type_variation = &"TitleLabel"
+text = "HEIST COMPLETE"
 horizontal_alignment = 1
 
-[node name="Subtitle" type="Label" parent="Root/Panel/VBox" unique_id=898309900]
+[node name="Subtitle" type="Label" parent="Root/Panel/VBox/TitleBlock" unique_id=898309900]
 layout_mode = 2
-theme_override_font_sizes/font_size = 18
+theme_type_variation = &"MutedLabel"
 text = "Subtitle"
 horizontal_alignment = 1
 
-[node name="Stats" type="Label" parent="Root/Panel/VBox" unique_id=569003329]
+[node name="StatsRow" type="HBoxContainer" parent="Root/Panel/VBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 18
-text = "Time 00:00  ·  Max detection 0%"
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="TimeBox" type="PanelContainer" parent="Root/Panel/VBox/StatsRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"SteelPanel"
+
+[node name="TimeVBox" type="VBoxContainer" parent="Root/Panel/VBox/StatsRow/TimeBox"]
+layout_mode = 2
+
+[node name="TimeCaption" type="Label" parent="Root/Panel/VBox/StatsRow/TimeBox/TimeVBox"]
+layout_mode = 2
+theme_type_variation = &"CaptionLabel"
+text = "TIME"
+horizontal_alignment = 1
+
+[node name="TimeValue" type="Label" parent="Root/Panel/VBox/StatsRow/TimeBox/TimeVBox"]
+layout_mode = 2
+theme_type_variation = &"StatLabel"
+text = "00:00"
+horizontal_alignment = 1
+
+[node name="DetectionBox" type="PanelContainer" parent="Root/Panel/VBox/StatsRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"SteelPanel"
+
+[node name="DetectionVBox" type="VBoxContainer" parent="Root/Panel/VBox/StatsRow/DetectionBox"]
+layout_mode = 2
+
+[node name="DetectionCaption" type="Label" parent="Root/Panel/VBox/StatsRow/DetectionBox/DetectionVBox"]
+layout_mode = 2
+theme_type_variation = &"CaptionLabel"
+text = "MAX DETECTION"
+horizontal_alignment = 1
+
+[node name="DetectionValue" type="Label" parent="Root/Panel/VBox/StatsRow/DetectionBox/DetectionVBox"]
+layout_mode = 2
+theme_type_variation = &"StatLabel"
+theme_override_colors/font_color = Color(0.961, 0.651, 0.137, 1)
+text = "0%"
+horizontal_alignment = 1
+
+[node name="CoinsBox" type="PanelContainer" parent="Root/Panel/VBox/StatsRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"SteelPanel"
+
+[node name="CoinsVBox" type="VBoxContainer" parent="Root/Panel/VBox/StatsRow/CoinsBox"]
+layout_mode = 2
+
+[node name="CoinsCaption" type="Label" parent="Root/Panel/VBox/StatsRow/CoinsBox/CoinsVBox"]
+layout_mode = 2
+theme_type_variation = &"CaptionLabel"
+text = "COINS USED"
+horizontal_alignment = 1
+
+[node name="CoinsValue" type="Label" parent="Root/Panel/VBox/StatsRow/CoinsBox/CoinsVBox"]
+layout_mode = 2
+theme_type_variation = &"StatLabel"
+text = "0"
 horizontal_alignment = 1
 
 [node name="Buttons" type="HBoxContainer" parent="Root/Panel/VBox" unique_id=492893736]
@@ -67,14 +150,14 @@ alignment = 1
 [node name="NextButton" type="Button" parent="Root/Panel/VBox/Buttons" unique_id=581428031]
 custom_minimum_size = Vector2(160, 44)
 layout_mode = 2
-text = "Next level"
+text = "NEXT LEVEL"
 
 [node name="RestartButton" type="Button" parent="Root/Panel/VBox/Buttons" unique_id=309281005]
 custom_minimum_size = Vector2(160, 44)
 layout_mode = 2
-text = "Restart"
+text = "RESTART"
 
 [node name="MenuButton" type="Button" parent="Root/Panel/VBox/Buttons"]
 custom_minimum_size = Vector2(160, 44)
 layout_mode = 2
-text = "Main menu"
+text = "MAIN MENU"

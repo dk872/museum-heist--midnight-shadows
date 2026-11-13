@@ -18,7 +18,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.07, 0.09, 0.14, 1)
+color = Color(0.055, 0.071, 0.094, 1)
 
 [node name="Center" type="CenterContainer" parent="." unique_id=495397272]
 layout_mode = 1
@@ -33,32 +33,98 @@ layout_mode = 2
 theme_override_constants/separation = 16
 alignment = 1
 
-[node name="Title" type="Label" parent="Center/VBox" unique_id=460122652]
+[node name="Studio" type="Label" parent="Center/VBox" unique_id=2146342493]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.84, 0.3, 1)
-theme_override_font_sizes/font_size = 56
-text = "Museum Heist"
+theme_type_variation = &"CaptionLabel"
+text = "MIDNIGHT SHADOWS STUDIO"
 horizontal_alignment = 1
 
-[node name="Subtitle" type="Label" parent="Center/VBox" unique_id=967740513]
+[node name="Title" type="Label" parent="Center/VBox" unique_id=460122652]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.75, 0.8, 0.9, 1)
-theme_override_font_sizes/font_size = 24
-text = "Midnight Shadows"
+theme_type_variation = &"TitleLabel"
+theme_override_font_sizes/font_size = 64
+text = "MUSEUM HEIST"
 horizontal_alignment = 1
+
+[node name="SubtitleRow" type="HBoxContainer" parent="Center/VBox" unique_id=1259971064]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="RuleLeft" type="ColorRect" parent="Center/VBox/SubtitleRow" unique_id=731441956]
+custom_minimum_size = Vector2(90, 1)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(0.357, 0.439, 0.565, 1)
+
+[node name="Subtitle" type="Label" parent="Center/VBox/SubtitleRow" unique_id=967740513]
+layout_mode = 2
+theme_type_variation = &"CaptionLabel"
+text = "MIDNIGHT SHADOWS"
+horizontal_alignment = 1
+
+[node name="RuleRight" type="ColorRect" parent="Center/VBox/SubtitleRow" unique_id=1399819127]
+custom_minimum_size = Vector2(90, 1)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(0.357, 0.439, 0.565, 1)
 
 [node name="Spacer" type="Control" parent="Center/VBox" unique_id=1999541140]
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 
-[node name="PlayButton" type="Button" parent="Center/VBox" unique_id=13576299]
-custom_minimum_size = Vector2(220, 48)
+[node name="Buttons" type="HBoxContainer" parent="Center/VBox" unique_id=30841679]
 layout_mode = 2
-text = "Play"
+theme_override_constants/separation = 16
+alignment = 1
 
-[node name="Hint" type="Label" parent="Center/VBox" unique_id=385565528]
+[node name="PlayButton" type="Button" parent="Center/VBox/Buttons" unique_id=13576299]
+custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.6, 0.65, 0.75, 1)
-theme_override_font_sizes/font_size = 14
-text = "WASD move · Shift sneak · E interact · Q coin · Esc pause"
+text = "PLAY"
+
+[node name="SettingsButton" type="Button" parent="Center/VBox/Buttons" unique_id=336103456]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+disabled = true
+text = "SETTINGS"
+
+[node name="CreditsButton" type="Button" parent="Center/VBox/Buttons" unique_id=1102338905]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+disabled = true
+text = "CREDITS"
+
+[node name="Hint" type="Label" parent="." unique_id=385565528]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -350.0
+offset_top = -44.0
+offset_right = 350.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_type_variation = &"HintLabel"
+text = "WASD MOVE · SHIFT SNEAK · E INTERACT · Q COIN · ESC PAUSE"
 horizontal_alignment = 1
+
+[node name="Version" type="Label" parent="." unique_id=885689763]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -44.0
+offset_right = -16.0
+offset_bottom = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_type_variation = &"HintLabel"
+text = "PROTOTYPE 0.3"
+horizontal_alignment = 2
