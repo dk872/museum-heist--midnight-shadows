@@ -5,6 +5,34 @@
 [ext_resource type="FontFile" uid="uid://ufenhhcgteey" path="res://ui/theme/fonts/ChakraPetch-SemiBold.ttf" id="4_chakra_sb"]
 [ext_resource type="FontFile" uid="uid://coidddh1g15l3" path="res://ui/theme/fonts/ChakraPetch-Bold.ttf" id="5_chakra_b"]
 
+[sub_resource type="FontVariation" id="chakra_caps"]
+base_font = ExtResource("4_chakra_sb")
+spacing_glyph = 3
+
+[sub_resource type="FontVariation" id="chakra_button"]
+base_font = ExtResource("4_chakra_sb")
+spacing_glyph = 4
+
+[sub_resource type="FontVariation" id="chakra_display"]
+base_font = ExtResource("5_chakra_b")
+spacing_glyph = 2
+
+[sub_resource type="StyleBoxFlat" id="keycap"]
+content_margin_left = 6.0
+content_margin_top = 2.0
+content_margin_right = 6.0
+content_margin_bottom = 2.0
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.357, 0.439, 0.565, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
 [sub_resource type="StyleBoxFlat" id="btn_disabled"]
 content_margin_left = 22.0
 content_margin_top = 10.0
@@ -144,8 +172,8 @@ Button/colors/font_disabled_color = Color(0.541, 0.608, 0.702, 1)
 Button/colors/font_focus_color = Color(1, 1, 1, 1)
 Button/colors/font_hover_color = Color(1, 1, 1, 1)
 Button/colors/font_pressed_color = Color(0.863, 0.902, 0.949, 1)
-Button/font_sizes/font_size = 16
-Button/fonts/font = ExtResource("4_chakra_sb")
+Button/font_sizes/font_size = 20
+Button/fonts/font = SubResource("chakra_button")
 Button/styles/disabled = SubResource("btn_disabled")
 Button/styles/focus = SubResource("btn_focus")
 Button/styles/hover = SubResource("btn_hover")
@@ -153,16 +181,16 @@ Button/styles/normal = SubResource("btn_normal")
 Button/styles/pressed = SubResource("btn_pressed")
 CaptionLabel/base_type = &"Label"
 CaptionLabel/colors/font_color = Color(0.541, 0.608, 0.702, 1)
-CaptionLabel/font_sizes/font_size = 12
-CaptionLabel/fonts/font = ExtResource("4_chakra_sb")
+CaptionLabel/font_sizes/font_size = 14
+CaptionLabel/fonts/font = SubResource("chakra_caps")
 HeadingLabel/base_type = &"Label"
 HeadingLabel/colors/font_color = Color(0.863, 0.902, 0.949, 1)
 HeadingLabel/font_sizes/font_size = 28
-HeadingLabel/fonts/font = ExtResource("5_chakra_b")
+HeadingLabel/fonts/font = SubResource("chakra_display")
 HintLabel/base_type = &"Label"
 HintLabel/colors/font_color = Color(0.29, 0.353, 0.439, 1)
-HintLabel/font_sizes/font_size = 12
-HintLabel/fonts/font = ExtResource("4_chakra_sb")
+HintLabel/font_sizes/font_size = 14
+HintLabel/fonts/font = SubResource("chakra_caps")
 HudLabel/base_type = &"Label"
 HudLabel/colors/font_color = Color(0.863, 0.902, 0.949, 1)
 HudLabel/colors/font_shadow_color = Color(0.039, 0.051, 0.071, 1)
@@ -181,10 +209,16 @@ ProgressBar/styles/fill = SubResource("pb_fill")
 StatLabel/base_type = &"Label"
 StatLabel/colors/font_color = Color(0.863, 0.902, 0.949, 1)
 StatLabel/font_sizes/font_size = 24
-StatLabel/fonts/font = ExtResource("5_chakra_b")
+StatLabel/fonts/font = SubResource("chakra_display")
 SteelPanel/base_type = &"PanelContainer"
 SteelPanel/styles/panel = SubResource("steel_panel")
 TitleLabel/base_type = &"Label"
 TitleLabel/colors/font_color = Color(0.863, 0.902, 0.949, 1)
-TitleLabel/font_sizes/font_size = 44
-TitleLabel/fonts/font = ExtResource("5_chakra_b")
+TitleLabel/font_sizes/font_size = 48
+TitleLabel/fonts/font = SubResource("chakra_display")
+KeyCap/base_type = &"PanelContainer"
+KeyCap/styles/panel = SubResource("keycap")
+KeyLabel/base_type = &"Label"
+KeyLabel/colors/font_color = Color(0.863, 0.902, 0.949, 1)
+KeyLabel/font_sizes/font_size = 14
+KeyLabel/fonts/font = SubResource("chakra_caps")

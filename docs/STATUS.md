@@ -26,6 +26,7 @@ What's done, how to use it, what's broken. One section per area.
 - `GameManager.enter_menu()`: menu scenes call it in `_ready()`; un-pauses and sets `MENU` so `level_time` stops counting.
 - Shared UI theme (`ui/theme/main_theme.tres`, registered as the project theme in `project.godot`): "noir tech" palette (night `#0E1218`, steel panels `#2A3545`, edge `#5B7090`, text `#DCE6F2`, muted `#8A9BB3`, amber `#F5A623`, red `#E5484D`), Barlow for body text, Chakra Petch for titles/captions/buttons (both OFL-licensed, `ui/theme/fonts/`). Applied to menu, HUD, result and pause screens.
 - Restyled HUD: OBJECTIVE caption + red marker, DETECTION steel panel with live percentage, TIME and COINS (dots) top right, messages bottom centre with an amber bar. Result screen: RUN REPORT header with level name (`SceneManager.level_name()`), three stat boxes (time / max detection / coins used). Coin counts are read from the Player node each frame — temporary until Dmytro exposes a coins signal.
+- Main menu art: `assets/ui/menu_background.svg` as a keep-aspect-covered `TextureRect`, a CPU-particle rain layer, a shader vignette, the emblem (`assets/ui/emblem.svg`, 92 px) above the title, and an amber `Polygon2D` beam at the façade window that `main_menu.gd` sweeps −12°…14° over 7 s (ping-pong). Title block sits in the top 400 px, buttons at y 470 so they don't cover the lit window.
 - Pause menu (`ui/screens/pause_menu.tscn`): Esc (`ui_cancel`) pauses with a dim overlay — Resume / Restart / Main menu, Resume focused; Esc again resumes. `process_mode` ALWAYS so it works while the tree is paused; visibility follows `state_changed`, so any pause source shows it. Esc does nothing on the result screen or in the menu. Instanced in `test_world`.
 
 **How to use**
@@ -36,11 +37,11 @@ What's done, how to use it, what's broken. One section per area.
 - Pause → `GameManager.set_paused(true/false)`, not `get_tree().paused`.
 - New level → add an instance of `ui/hud/hud.tscn`, `ui/screens/result_screen.tscn` and `ui/screens/pause_menu.tscn`, and add the level to `SceneManager.LEVELS` and `LEVEL_ORDER` (one line each).
 - Change scenes / restart → always through `SceneManager` (`restart_level()` etc.), never hardcode scene paths.
+- `assets/ui/emblem.svg` must be imported with `svg/scale` = 2 (Import dock → Reimport) or it renders blurry at 92 px.
 - Styling UI → use `theme_type_variation` (`TitleLabel`, `HeadingLabel`, `CaptionLabel`, `MutedLabel`, `HintLabel`, `HudLabel`, `StatLabel`, `SteelPanel`), never per-node `theme_override_*` for fonts/colours.
 - Debug builds: keys **1** panel, **2** artifact, **3** win, **4** lose, **0** restart level. Prints every signal to Output.
 
 **Known issues**
-- Debug keys (1/2/3/4/0) don't work while paused — GameManager uses the default process mode.
 - On the Web build, Esc also leaves browser fullscreen; a second key for pause may be needed later.
 
 ---
