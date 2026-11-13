@@ -7,6 +7,8 @@ const EDGE := Color(0.357, 0.439, 0.565)
 @export var message_fade: float = 0.4
 
 @onready var objective_label: Label = $Root/TopLeft/ObjectiveRow/Objective
+@onready var marker: Panel = $Root/TopLeft/ObjectiveRow/Marker
+@onready var marker_icon: TextureRect = $Root/TopLeft/ObjectiveRow/MarkerIcon
 @onready var top_left: VBoxContainer = $Root/TopLeft
 @onready var top_right: VBoxContainer = $Root/TopRight
 @onready var message_panel: Panel = $Root/MessagePanel
@@ -33,7 +35,7 @@ func _ready() -> void:
 	GameManager.objective_changed.connect(_on_objective_changed)
 	GameManager.message.connect(_on_message)
 	GameManager.state_changed.connect(_on_state_changed)
-	objective_label.text = GameManager.current_objective
+	_on_objective_changed(GameManager.current_objective)
 	message_panel.modulate.a = 0.0
 
 
@@ -46,6 +48,9 @@ func _process(_delta: float) -> void:
 
 func _on_objective_changed(text: String) -> void:
 	objective_label.text = text
+	var is_panel := text == GameManager.OBJECTIVES["panel"]
+	marker.visible = is_panel
+	marker_icon.visible = not is_panel
 
 
 func _on_message(text: String) -> void:
@@ -85,6 +90,7 @@ func _update_coins() -> void:
 	var coins := int(player.coins)
 	for i in coin_dots.size():
 		coin_dots[i].add_theme_stylebox_override("panel", _dot_full if i < coins else _dot_empty)
+
 
 
 func _make_dot_styles() -> void:

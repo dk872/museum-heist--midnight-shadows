@@ -1,7 +1,20 @@
-[gd_scene format=3 uid="uid://b3odjv26fkyqq"]
+[gd_scene format=3 load_steps=7 uid="uid://b3odjv26fkyqq"]
 
 [ext_resource type="Script" path="res://scripts/display_case.gd" id="1_c4s7v"]
-[ext_resource type="Texture2D" path="res://assets/objects/display_case.svg" id="1_pqt5d"]
+[ext_resource type="Texture2D" path="res://assets/ui/emblem_flat.svg" id="1_pqt5d"]
+[ext_resource type="Script" path="res://ui/hold_bar.gd" id="2_hold"]
+
+[sub_resource type="Gradient" id="glow_gradient"]
+offsets = PackedFloat32Array(0, 1)
+colors = PackedColorArray(0.961, 0.651, 0.137, 0.35, 0.961, 0.651, 0.137, 0)
+
+[sub_resource type="GradientTexture2D" id="glow_texture"]
+gradient = SubResource("glow_gradient")
+width = 96
+height = 96
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obds8"]
 size = Vector2(26, 26)
@@ -11,8 +24,13 @@ script = ExtResource("1_c4s7v")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=578848873]
 position = Vector2(-4.7683716e-07, -1)
-scale = Vector2(1, 1)
+scale = Vector2(0.75, 0.75)
 texture = ExtResource("1_pqt5d")
+
+[node name="Glow" type="Sprite2D" parent="Sprite2D"]
+z_index = -1
+scale = Vector2(1.3333334, 1.3333334)
+texture = SubResource("glow_texture")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=340761690]
 position = Vector2(-1, -1)
@@ -30,3 +48,15 @@ theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 14
 text = "ARTIFACT · Hold E"
 horizontal_alignment = 1
+
+[node name="HoldBar" type="ProgressBar" parent="."]
+visible = false
+offset_left = -36.0
+offset_top = -62.0
+offset_right = 36.0
+offset_bottom = -54.0
+mouse_filter = 2
+max_value = 1.0
+step = 0.001
+show_percentage = false
+script = ExtResource("2_hold")

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ba0v6uuroo3hj"]
 
 [ext_resource type="Script" uid="uid://6dvpjea5i6cp" path="res://ui/hud/hud.gd" id="1_hud"]
+[ext_resource type="Texture2D" path="res://assets/ui/emblem_icon.svg" id="2_icon"]
 
 [sub_resource type="StyleBoxFlat" id="marker_circle"]
 draw_center = false
@@ -60,6 +61,17 @@ layout_mode = 2
 size_flags_vertical = 4
 mouse_filter = 2
 theme_override_styles/panel = SubResource("marker_circle")
+
+[node name="MarkerIcon" type="TextureRect" parent="Root/TopLeft/ObjectiveRow"]
+visible = false
+modulate = Color(0.961, 0.651, 0.137, 1)
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("2_icon")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Objective" type="Label" parent="Root/TopLeft/ObjectiveRow" unique_id=352845484]
 layout_mode = 2
