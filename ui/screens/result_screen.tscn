@@ -1,6 +1,31 @@
 [gd_scene format=3 uid="uid://b3ks1lf8xj5by"]
 
 [ext_resource type="Script" uid="uid://c1s0pfqi5ccxx" path="res://ui/screens/result_screen.gd" id="1_result"]
+[ext_resource type="Texture2D" uid="uid://brymqv2rbbyc1" path="res://assets/ui/emblem_watermark.svg" id="2_watermark"]
+[ext_resource type="Texture2D" uid="uid://b3vprpd2pdlco" path="res://assets/ui/card_bottom.svg" id="3_strip"]
+
+[sub_resource type="Gradient" id="card_gradient"]
+offsets = PackedFloat32Array(0, 1)
+colors = PackedColorArray(0.137, 0.176, 0.227, 1, 0.11, 0.141, 0.188, 1)
+
+[sub_resource type="GradientTexture2D" id="card_gradient_tex"]
+gradient = SubResource("card_gradient")
+width = 8
+height = 64
+fill_from = Vector2(0, 0)
+fill_to = Vector2(0, 1)
+
+[sub_resource type="Shader" id="dash_shader"]
+code = "shader_type canvas_item;
+
+// 1 px dashed rule in #3A4A60: 8 px dash, 6 px gap (14 px pitch) over a 576 px rule.
+void fragment() {
+	COLOR.rgb = vec3(0.227, 0.290, 0.376);
+	COLOR.a *= step(fract(UV.x * 41.14), 0.571);
+}"
+
+[sub_resource type="ShaderMaterial" id="dash_material"]
+shader = SubResource("dash_shader")
 
 [node name="ResultScreen" type="CanvasLayer" unique_id=667130711]
 process_mode = 3
@@ -24,10 +49,23 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0, 0, 0, 0.65)
+color = Color(0.031, 0.039, 0.055, 0.74)
 
-[node name="Panel" type="PanelContainer" parent="Root" unique_id=959432819]
-custom_minimum_size = Vector2(560, 0)
+[node name="Slide" type="Control" parent="Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Shadow" type="Panel" parent="Root/Slide"]
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"CardShadow"
+
+[node name="Card" type="VBoxContainer" parent="Root/Slide"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -36,128 +74,275 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = -1
 
-[node name="VBox" type="VBoxContainer" parent="Root/Panel" unique_id=958688163]
+[node name="Panel" type="PanelContainer" parent="Root/Slide/Card" unique_id=959432819]
+custom_minimum_size = Vector2(640, 0)
 layout_mode = 2
-theme_override_constants/separation = 12
+clip_contents = true
+theme_type_variation = &"ReportCard"
 
-[node name="Header" type="PanelContainer" parent="Root/Panel/VBox"]
+[node name="GradientInset" type="MarginContainer" parent="Root/Slide/Card/Panel"]
 layout_mode = 2
-theme_type_variation = &"SteelPanel"
+mouse_filter = 2
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 0
 
-[node name="HeaderRow" type="HBoxContainer" parent="Root/Panel/VBox/Header"]
+[node name="Gradient" type="TextureRect" parent="Root/Slide/Card/Panel/GradientInset"]
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("card_gradient_tex")
+expand_mode = 1
+
+[node name="WatermarkAnchor" type="Control" parent="Root/Slide/Card/Panel"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Watermark" type="TextureRect" parent="Root/Slide/Card/Panel/WatermarkAnchor"]
+modulate = Color(0.863, 0.902, 0.949, 0.05)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -210.0
+offset_top = -60.0
+offset_right = 90.0
+offset_bottom = 240.0
+grow_horizontal = 0
+mouse_filter = 2
+texture = ExtResource("2_watermark")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBox" type="VBoxContainer" parent="Root/Slide/Card/Panel" unique_id=958688163]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Header" type="PanelContainer" parent="Root/Slide/Card/Panel/VBox"]
+layout_mode = 2
+theme_type_variation = &"ReportHeader"
+
+[node name="HeaderRow" type="HBoxContainer" parent="Root/Slide/Card/Panel/VBox/Header"]
 layout_mode = 2
 
-[node name="ReportCaption" type="Label" parent="Root/Panel/VBox/Header/HeaderRow"]
+[node name="ReportCaption" type="Label" parent="Root/Slide/Card/Panel/VBox/Header/HeaderRow"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_type_variation = &"CaptionLabel"
+theme_type_variation = &"HeaderTitleLabel"
 text = "RUN REPORT"
+vertical_alignment = 1
 
-[node name="LevelName" type="Label" parent="Root/Panel/VBox/Header/HeaderRow"]
+[node name="LevelName" type="Label" parent="Root/Slide/Card/Panel/VBox/Header/HeaderRow"]
 layout_mode = 2
-theme_type_variation = &"CaptionLabel"
+theme_type_variation = &"HeaderMetaLabel"
 text = "LEVEL"
 horizontal_alignment = 2
+vertical_alignment = 1
 
-[node name="TitleBlock" type="VBoxContainer" parent="Root/Panel/VBox"]
+[node name="Accent" type="ColorRect" parent="Root/Slide/Card/Panel/VBox"]
+custom_minimum_size = Vector2(0, 3)
 layout_mode = 2
-theme_override_constants/separation = 2
+mouse_filter = 2
+color = Color(0.961, 0.651, 0.137, 1)
 
-[node name="Title" type="Label" parent="Root/Panel/VBox/TitleBlock" unique_id=250851435]
+[node name="Body" type="MarginContainer" parent="Root/Slide/Card/Panel/VBox"]
 layout_mode = 2
-theme_type_variation = &"TitleLabel"
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 24
+
+[node name="BodyVBox" type="VBoxContainer" parent="Root/Slide/Card/Panel/VBox/Body"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Root/Slide/Card/Panel/VBox/Body/BodyVBox" unique_id=250851435]
+layout_mode = 2
+theme_type_variation = &"ReportTitleLabel"
 text = "HEIST COMPLETE"
 horizontal_alignment = 1
 
-[node name="Subtitle" type="Label" parent="Root/Panel/VBox/TitleBlock" unique_id=898309900]
+[node name="Stamp" type="PanelContainer" parent="Root/Slide/Card/Panel/VBox/Body/BodyVBox/Title"]
+visible = false
+modulate = Color(1, 1, 1, 0.92)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -32.0
+offset_top = 0.0
+offset_right = -32.0
+offset_bottom = 0.0
+grow_horizontal = 0
+rotation = -0.174533
+mouse_filter = 2
+theme_type_variation = &"StampPanel"
+
+[node name="StampLabel" type="Label" parent="Root/Slide/Card/Panel/VBox/Body/BodyVBox/Title/Stamp"]
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"StampLabel"
+text = "CLEAN"
+
+[node name="Subtitle" type="Label" parent="Root/Slide/Card/Panel/VBox/Body/BodyVBox" unique_id=898309900]
 layout_mode = 2
 theme_type_variation = &"MutedLabel"
+theme_override_font_sizes/font_size = 18
 text = "Subtitle"
 horizontal_alignment = 1
 
-[node name="StatsRow" type="HBoxContainer" parent="Root/Panel/VBox"]
+[node name="DashWrap" type="MarginContainer" parent="Root/Slide/Card/Panel/VBox/Body/BodyVBox"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 8
+
+[node name="Dashes" type="ColorRect" parent="Root/Slide/Card/Panel/VBox/Body/BodyVBox/DashWrap"]
+material = SubResource("dash_material")
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="StatsRow" type="HBoxContainer" parent="Root/Slide/Card/Panel/VBox/Body/BodyVBox"]
 layout_mode = 2
 theme_override_constants/separation = 12
-alignment = 1
 
-[node name="TimeBox" type="PanelContainer" parent="Root/Panel/VBox/StatsRow"]
+[node name="TimeBox" type="PanelContainer" parent="Root/Slide/Card/Panel/VBox/Body/BodyVBox/StatsRow"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_type_variation = &"SteelPanel"
+theme_type_variation = &"StatBox"
 
-[node name="TimeVBox" type="VBoxContainer" parent="Root/Panel/VBox/StatsRow/TimeBox"]
+[node name="TimeVBox" type="VBoxContainer" parent="Root/Slide/Card/Panel/VBox/Body/BodyVBox/StatsRow/TimeBox"]
 layout_mode = 2
+theme_override_constants/separation = 4
 
-[node name="TimeCaption" type="Label" parent="Root/Panel/VBox/StatsRow/TimeBox/TimeVBox"]
+[node name="TimeCaption" type="Label" parent="Root/Slide/Card/Panel/VBox/Body/BodyVBox/StatsRow/TimeBox/TimeVBox"]
 layout_mode = 2
-theme_type_variation = &"CaptionLabel"
+theme_type_variation = &"StatCaptionLabel"
 text = "TIME"
 horizontal_alignment = 1
 
-[node name="TimeValue" type="Label" parent="Root/Panel/VBox/StatsRow/TimeBox/TimeVBox"]
+[node name="TimeValue" type="Label" parent="Root/Slide/Card/Panel/VBox/Body/BodyVBox/StatsRow/TimeBox/TimeVBox"]
 layout_mode = 2
-theme_type_variation = &"StatLabel"
+theme_type_variation = &"StatValueLabel"
 text = "00:00"
 horizontal_alignment = 1
 
-[node name="DetectionBox" type="PanelContainer" parent="Root/Panel/VBox/StatsRow"]
+[node name="TimeSub" type="Label" parent="Root/Slide/Card/Panel/VBox/Body/BodyVBox/StatsRow/TimeBox/TimeVBox"]
+layout_mode = 2
+theme_type_variation = &"StatSubLabel"
+text = "BEST 00:00"
+horizontal_alignment = 1
+
+[node name="TagAnchor" type="Control" parent="Root/Slide/Card/Panel/VBox/Body/BodyVBox/StatsRow/TimeBox"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="NewBest" type="Label" parent="Root/Slide/Card/Panel/VBox/Body/BodyVBox/StatsRow/TimeBox/TagAnchor"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -48.0
+offset_top = -24.0
+offset_right = 48.0
+offset_bottom = -6.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_type_variation = &"TagLabel"
+text = "NEW BEST"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DetectionBox" type="PanelContainer" parent="Root/Slide/Card/Panel/VBox/Body/BodyVBox/StatsRow"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_type_variation = &"SteelPanel"
+theme_type_variation = &"StatBox"
 
-[node name="DetectionVBox" type="VBoxContainer" parent="Root/Panel/VBox/StatsRow/DetectionBox"]
+[node name="DetectionVBox" type="VBoxContainer" parent="Root/Slide/Card/Panel/VBox/Body/BodyVBox/StatsRow/DetectionBox"]
 layout_mode = 2
+theme_override_constants/separation = 4
 
-[node name="DetectionCaption" type="Label" parent="Root/Panel/VBox/StatsRow/DetectionBox/DetectionVBox"]
+[node name="DetectionCaption" type="Label" parent="Root/Slide/Card/Panel/VBox/Body/BodyVBox/StatsRow/DetectionBox/DetectionVBox"]
 layout_mode = 2
-theme_type_variation = &"CaptionLabel"
+theme_type_variation = &"StatCaptionLabel"
 text = "MAX DETECTION"
 horizontal_alignment = 1
 
-[node name="DetectionValue" type="Label" parent="Root/Panel/VBox/StatsRow/DetectionBox/DetectionVBox"]
+[node name="DetectionValue" type="Label" parent="Root/Slide/Card/Panel/VBox/Body/BodyVBox/StatsRow/DetectionBox/DetectionVBox"]
 layout_mode = 2
-theme_type_variation = &"StatLabel"
-theme_override_colors/font_color = Color(0.961, 0.651, 0.137, 1)
+theme_type_variation = &"StatValueLabel"
 text = "0%"
 horizontal_alignment = 1
 
-[node name="CoinsBox" type="PanelContainer" parent="Root/Panel/VBox/StatsRow"]
+[node name="DetectionSub" type="Label" parent="Root/Slide/Card/Panel/VBox/Body/BodyVBox/StatsRow/DetectionBox/DetectionVBox"]
+layout_mode = 2
+theme_type_variation = &"StatSubLabel"
+text = "BEST 0%"
+horizontal_alignment = 1
+
+[node name="CoinsBox" type="PanelContainer" parent="Root/Slide/Card/Panel/VBox/Body/BodyVBox/StatsRow"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_type_variation = &"SteelPanel"
+theme_type_variation = &"StatBox"
 
-[node name="CoinsVBox" type="VBoxContainer" parent="Root/Panel/VBox/StatsRow/CoinsBox"]
+[node name="CoinsVBox" type="VBoxContainer" parent="Root/Slide/Card/Panel/VBox/Body/BodyVBox/StatsRow/CoinsBox"]
 layout_mode = 2
+theme_override_constants/separation = 4
 
-[node name="CoinsCaption" type="Label" parent="Root/Panel/VBox/StatsRow/CoinsBox/CoinsVBox"]
+[node name="CoinsCaption" type="Label" parent="Root/Slide/Card/Panel/VBox/Body/BodyVBox/StatsRow/CoinsBox/CoinsVBox"]
 layout_mode = 2
-theme_type_variation = &"CaptionLabel"
+theme_type_variation = &"StatCaptionLabel"
 text = "COINS USED"
 horizontal_alignment = 1
 
-[node name="CoinsValue" type="Label" parent="Root/Panel/VBox/StatsRow/CoinsBox/CoinsVBox"]
+[node name="CoinsValue" type="Label" parent="Root/Slide/Card/Panel/VBox/Body/BodyVBox/StatsRow/CoinsBox/CoinsVBox"]
 layout_mode = 2
-theme_type_variation = &"StatLabel"
+theme_type_variation = &"StatValueLabel"
 text = "0"
 horizontal_alignment = 1
 
-[node name="Buttons" type="HBoxContainer" parent="Root/Panel/VBox" unique_id=492893736]
+[node name="CoinsSub" type="Label" parent="Root/Slide/Card/Panel/VBox/Body/BodyVBox/StatsRow/CoinsBox/CoinsVBox"]
 layout_mode = 2
-theme_override_constants/separation = 16
-alignment = 1
+theme_type_variation = &"StatSubLabel"
+text = "OF 3"
+horizontal_alignment = 1
 
-[node name="NextButton" type="Button" parent="Root/Panel/VBox/Buttons" unique_id=581428031]
-custom_minimum_size = Vector2(160, 44)
+[node name="ButtonsWrap" type="MarginContainer" parent="Root/Slide/Card/Panel/VBox/Body/BodyVBox"]
 layout_mode = 2
+theme_override_constants/margin_top = 16
+
+[node name="Buttons" type="HBoxContainer" parent="Root/Slide/Card/Panel/VBox/Body/BodyVBox/ButtonsWrap" unique_id=492893736]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="NextButton" type="Button" parent="Root/Slide/Card/Panel/VBox/Body/BodyVBox/ButtonsWrap/Buttons" unique_id=581428031]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"ReportButton"
 text = "NEXT LEVEL"
 
-[node name="RestartButton" type="Button" parent="Root/Panel/VBox/Buttons" unique_id=309281005]
-custom_minimum_size = Vector2(160, 44)
+[node name="RestartButton" type="Button" parent="Root/Slide/Card/Panel/VBox/Body/BodyVBox/ButtonsWrap/Buttons" unique_id=309281005]
+custom_minimum_size = Vector2(0, 46)
 layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"ReportButton"
 text = "RESTART"
 
-[node name="MenuButton" type="Button" parent="Root/Panel/VBox/Buttons"]
-custom_minimum_size = Vector2(160, 44)
+[node name="MenuButton" type="Button" parent="Root/Slide/Card/Panel/VBox/Body/BodyVBox/ButtonsWrap/Buttons"]
+custom_minimum_size = Vector2(0, 46)
 layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"ReportButton"
 text = "MAIN MENU"
+
+[node name="Strip" type="TextureRect" parent="Root/Slide/Card"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("3_strip")
+expand_mode = 1
