@@ -20,7 +20,7 @@ const OBJECTIVES := {
 	"exit": "Escape through the emergency exit",
 }
 
-# Debug builds only. Keys: 1 panel, 2 artifact, 3 win, 4 lose, 0 restart level.
+# Debug builds only. Keys: 1 panel, 2 artifact, 3 win, 4 lose, 0 restart level, 9 clear best records.
 var log_signals: bool = true
 var debug_keys: bool = true
 
@@ -153,6 +153,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		KEY_3: win()
 		KEY_4: lose("debug")
 		KEY_0: SceneManager.restart_level()
+		KEY_9:
+			Records.clear_all()
+			print("[GameManager] best records cleared")
 
 
 func _connect_debug_log() -> void:

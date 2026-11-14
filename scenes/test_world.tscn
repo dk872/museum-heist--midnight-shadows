@@ -30,11 +30,17 @@ position = Vector2(79, 222)
 [node name="HUD" parent="." unique_id=851797309 instance=ExtResource("5_hud")]
 
 [node name="Controls" type="Label" parent="HUD" unique_id=941884585]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
 offset_left = 16.0
-offset_top = 90.0
+offset_top = -34.0
 offset_right = 650.0
-offset_bottom = 115.0
-text = "WASD move | Shift quiet | E interact | Q throw coin (3)"
+offset_bottom = -14.0
+grow_vertical = 0
+theme_type_variation = &"HintLabel"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "WASD MOVE · SHIFT SNEAK · E INTERACT · Q THROW COIN"
 
 [node name="ResultScreen" parent="." unique_id=1667221304 instance=ExtResource("5_result")]
 

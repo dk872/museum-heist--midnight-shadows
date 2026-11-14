@@ -5,6 +5,9 @@ const LEVELS := {
 	"tutorial": "res://scenes/test_world.tscn",   # Katya's real level replaces this later
 }
 const LEVEL_ORDER := ["tutorial"]   # "master" gets appended when Katya's level lands
+const LEVEL_NAMES := {
+	"tutorial": "ANTIQUITY GALLERY",
+}
 const MENU_SCENE := "res://ui/screens/main_menu.tscn"
 
 var current_level_id: String = "tutorial"
@@ -36,6 +39,10 @@ func next_level() -> void:
 		start_level(LEVEL_ORDER[LEVEL_ORDER.find(current_level_id) + 1])
 	else:
 		go_to_menu()
+
+
+func level_name() -> String:
+	return LEVEL_NAMES.get(current_level_id, current_level_id.to_upper())
 
 
 func go_to_menu() -> void:

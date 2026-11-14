@@ -1,6 +1,31 @@
 [gd_scene format=3 uid="uid://3351btvku6vi"]
 
 [ext_resource type="Script" uid="uid://c32cghvna235t" path="res://ui/screens/pause_menu.gd" id="1_pause"]
+[ext_resource type="Texture2D" uid="uid://jdcml1ul3jnw" path="res://assets/ui/emblem_icon.svg" id="2_icon"]
+[ext_resource type="Texture2D" uid="uid://brymqv2rbbyc1" path="res://assets/ui/emblem_watermark.svg" id="3_watermark"]
+
+[sub_resource type="Gradient" id="card_gradient"]
+offsets = PackedFloat32Array(0, 1)
+colors = PackedColorArray(0.137, 0.176, 0.227, 1, 0.11, 0.141, 0.188, 1)
+
+[sub_resource type="GradientTexture2D" id="card_gradient_tex"]
+gradient = SubResource("card_gradient")
+width = 8
+height = 64
+fill_from = Vector2(0, 0)
+fill_to = Vector2(0, 1)
+
+[sub_resource type="StyleBoxFlat" id="marker_circle"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.898, 0.282, 0.302, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="PauseMenu" type="CanvasLayer" unique_id=5144033]
 process_mode = 3
@@ -24,10 +49,24 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0, 0, 0, 0.55)
+color = Color(0.031, 0.039, 0.055, 0.7)
 
-[node name="Panel" type="PanelContainer" parent="Root" unique_id=1596261460]
-custom_minimum_size = Vector2(360, 0)
+[node name="Slide" type="Control" parent="Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Shadow" type="Panel" parent="Root/Slide"]
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"CardShadow"
+
+[node name="Card" type="PanelContainer" parent="Root/Slide" unique_id=1596261460]
+custom_minimum_size = Vector2(440, 0)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -36,35 +75,265 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+clip_contents = true
+theme_type_variation = &"PauseCard"
 
-[node name="Margin" type="MarginContainer" parent="Root/Panel" unique_id=1191786973]
+[node name="GradientInset" type="MarginContainer" parent="Root/Slide/Card"]
 layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
+mouse_filter = 2
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
 
-[node name="VBox" type="VBoxContainer" parent="Root/Panel/Margin" unique_id=1028213589]
+[node name="Gradient" type="TextureRect" parent="Root/Slide/Card/GradientInset"]
 layout_mode = 2
-theme_override_constants/separation = 12
+mouse_filter = 2
+texture = SubResource("card_gradient_tex")
+expand_mode = 1
 
-[node name="Title" type="Label" parent="Root/Panel/Margin/VBox" unique_id=839061618]
+[node name="WatermarkAnchor" type="Control" parent="Root/Slide/Card"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "Paused"
-horizontal_alignment = 1
+mouse_filter = 2
 
-[node name="ResumeButton" type="Button" parent="Root/Panel/Margin/VBox" unique_id=221711303]
-custom_minimum_size = Vector2(200, 44)
-layout_mode = 2
-text = "Resume"
+[node name="Watermark" type="TextureRect" parent="Root/Slide/Card/WatermarkAnchor"]
+modulate = Color(0.863, 0.902, 0.949, 0.06)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -190.0
+offset_top = -190.0
+offset_right = 70.0
+offset_bottom = 70.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+texture = ExtResource("3_watermark")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="RestartButton" type="Button" parent="Root/Panel/Margin/VBox" unique_id=1329239526]
-custom_minimum_size = Vector2(200, 44)
+[node name="VBox" type="VBoxContainer" parent="Root/Slide/Card" unique_id=1028213589]
 layout_mode = 2
-text = "Restart"
+theme_override_constants/separation = 0
 
-[node name="MenuButton" type="Button" parent="Root/Panel/Margin/VBox" unique_id=503175762]
-custom_minimum_size = Vector2(200, 44)
+[node name="Header" type="PanelContainer" parent="Root/Slide/Card/VBox"]
 layout_mode = 2
-text = "Main menu"
+theme_type_variation = &"ReportHeader"
+
+[node name="HeaderRow" type="HBoxContainer" parent="Root/Slide/Card/VBox/Header"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Root/Slide/Card/VBox/Header/HeaderRow" unique_id=839061618]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"HeaderTitleLabel"
+text = "PAUSED"
+vertical_alignment = 1
+
+[node name="LevelName" type="Label" parent="Root/Slide/Card/VBox/Header/HeaderRow"]
+layout_mode = 2
+theme_type_variation = &"HeaderMetaLabel"
+text = "LEVEL"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="HeaderLine" type="ColorRect" parent="Root/Slide/Card/VBox"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.357, 0.439, 0.565, 1)
+
+[node name="Body" type="MarginContainer" parent="Root/Slide/Card/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="BodyVBox" type="VBoxContainer" parent="Root/Slide/Card/VBox/Body"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="ObjectiveBlock" type="VBoxContainer" parent="Root/Slide/Card/VBox/Body/BodyVBox"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="ObjectiveCaption" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/ObjectiveBlock"]
+layout_mode = 2
+theme_type_variation = &"ObjectiveCaptionLabel"
+text = "OBJECTIVE"
+
+[node name="ObjectiveRow" type="HBoxContainer" parent="Root/Slide/Card/VBox/Body/BodyVBox/ObjectiveBlock"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Marker" type="Panel" parent="Root/Slide/Card/VBox/Body/BodyVBox/ObjectiveBlock/ObjectiveRow"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_styles/panel = SubResource("marker_circle")
+
+[node name="MarkerIcon" type="TextureRect" parent="Root/Slide/Card/VBox/Body/BodyVBox/ObjectiveBlock/ObjectiveRow"]
+visible = false
+modulate = Color(0.961, 0.651, 0.137, 1)
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("2_icon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Objective" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/ObjectiveBlock/ObjectiveRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"BodyLabel"
+text = "Objective"
+autowrap_mode = 2
+
+[node name="StatsRow" type="HBoxContainer" parent="Root/Slide/Card/VBox/Body/BodyVBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TimeBox" type="PanelContainer" parent="Root/Slide/Card/VBox/Body/BodyVBox/StatsRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"StatBoxSmall"
+
+[node name="TimeVBox" type="VBoxContainer" parent="Root/Slide/Card/VBox/Body/BodyVBox/StatsRow/TimeBox"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="TimeCaption" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/StatsRow/TimeBox/TimeVBox"]
+layout_mode = 2
+theme_type_variation = &"StatCaptionLabel"
+text = "TIME"
+
+[node name="TimeValue" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/StatsRow/TimeBox/TimeVBox"]
+layout_mode = 2
+theme_type_variation = &"StatValueLabel"
+theme_override_font_sizes/font_size = 22
+text = "00:00"
+
+[node name="DetectionBox" type="PanelContainer" parent="Root/Slide/Card/VBox/Body/BodyVBox/StatsRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"StatBoxSmall"
+
+[node name="DetectionVBox" type="VBoxContainer" parent="Root/Slide/Card/VBox/Body/BodyVBox/StatsRow/DetectionBox"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="DetectionCaption" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/StatsRow/DetectionBox/DetectionVBox"]
+layout_mode = 2
+theme_type_variation = &"StatCaptionLabel"
+text = "DETECTION"
+
+[node name="DetectionValue" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/StatsRow/DetectionBox/DetectionVBox"]
+layout_mode = 2
+theme_type_variation = &"StatValueLabel"
+theme_override_font_sizes/font_size = 22
+text = "0%"
+
+[node name="CoinsBox" type="PanelContainer" parent="Root/Slide/Card/VBox/Body/BodyVBox/StatsRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"StatBoxSmall"
+
+[node name="CoinsVBox" type="VBoxContainer" parent="Root/Slide/Card/VBox/Body/BodyVBox/StatsRow/CoinsBox"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="CoinsCaption" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/StatsRow/CoinsBox/CoinsVBox"]
+layout_mode = 2
+theme_type_variation = &"StatCaptionLabel"
+text = "COINS"
+
+[node name="CoinsRow" type="HBoxContainer" parent="Root/Slide/Card/VBox/Body/BodyVBox/StatsRow/CoinsBox/CoinsVBox"]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="CoinDot1" type="Panel" parent="Root/Slide/Card/VBox/Body/BodyVBox/StatsRow/CoinsBox/CoinsVBox/CoinsRow"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="CoinDot2" type="Panel" parent="Root/Slide/Card/VBox/Body/BodyVBox/StatsRow/CoinsBox/CoinsVBox/CoinsRow"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="CoinDot3" type="Panel" parent="Root/Slide/Card/VBox/Body/BodyVBox/StatsRow/CoinsBox/CoinsVBox/CoinsRow"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="Separator" type="ColorRect" parent="Root/Slide/Card/VBox/Body/BodyVBox"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.227, 0.29, 0.376, 1)
+
+[node name="Buttons" type="VBoxContainer" parent="Root/Slide/Card/VBox/Body/BodyVBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ResumeButton" type="Button" parent="Root/Slide/Card/VBox/Body/BodyVBox/Buttons" unique_id=221711303]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+theme_type_variation = &"PauseButton"
+text = "RESUME"
+
+[node name="RestartButton" type="Button" parent="Root/Slide/Card/VBox/Body/BodyVBox/Buttons" unique_id=1329239526]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+theme_type_variation = &"PauseButton"
+text = "RESTART"
+
+[node name="MenuButton" type="Button" parent="Root/Slide/Card/VBox/Body/BodyVBox/Buttons" unique_id=503175762]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+theme_type_variation = &"PauseButton"
+text = "MAIN MENU"
+
+[node name="Hint" type="HBoxContainer" parent="Root/Slide"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -54.0
+offset_right = 200.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Cap" type="PanelContainer" parent="Root/Slide/Hint"]
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"KeyCap"
+
+[node name="Label" type="Label" parent="Root/Slide/Hint/Cap"]
+layout_mode = 2
+theme_type_variation = &"KeyLabel"
+text = "ESC"
+
+[node name="Word" type="Label" parent="Root/Slide/Hint"]
+layout_mode = 2
+theme_type_variation = &"HintLabel"
+theme_override_colors/font_color = Color(0.541, 0.608, 0.702, 1)
+text = "RESUME"
+vertical_alignment = 1

@@ -3,9 +3,22 @@ extends CanvasLayer
 @export var message_duration: float = 2.0
 @export var message_fade: float = 0.4
 
-@onready var objective_label: Label = $Root/Objective
-@onready var message_label: Label = $Root/Message
-@onready var detection_bar: ProgressBar = $Root/Detection
+@onready var objective_label: Label = $Root/TopLeft/ObjectiveRow/Objective
+@onready var marker: Panel = $Root/TopLeft/ObjectiveRow/Marker
+@onready var marker_icon: TextureRect = $Root/TopLeft/ObjectiveRow/MarkerIcon
+@onready var top_left: VBoxContainer = $Root/TopLeft
+@onready var top_right: VBoxContainer = $Root/TopRight
+@onready var message_panel: Panel = $Root/MessagePanel
+@onready var message_label: Label = $Root/MessagePanel/Message
+@onready var detection_bar: ProgressBar = $Root/TopLeft/DetectionRow/Detection
+@onready var detection_percent: Label = $Root/TopLeft/DetectionRow/DetectionPercent
+@onready var time_value: Label = $Root/TopRight/TimeRow/TimeValue
+@onready var coins_row: HBoxContainer = $Root/TopRight/CoinsRow
+@onready var coin_dots: Array[Panel] = [
+	$Root/TopRight/CoinsRow/CoinDot1 as Panel,
+	$Root/TopRight/CoinsRow/CoinDot2 as Panel,
+	$Root/TopRight/CoinsRow/CoinDot3 as Panel,
+]
 
 var _message_tween: Tween
 
@@ -16,33 +29,61 @@ func _ready() -> void:
 	GameManager.objective_changed.connect(_on_objective_changed)
 	GameManager.message.connect(_on_message)
 	GameManager.state_changed.connect(_on_state_changed)
-	objective_label.text = GameManager.current_objective
-	message_label.modulate.a = 0.0
+	_on_objective_changed(GameManager.current_objective)
+	message_panel.modulate.a = 0.0
+
+
+func _process(_delta: float) -> void:
+	if GameManager.state != GameManager.State.PLAYING:
+		return
+	time_value.text = _format_time(GameManager.level_time)
+	_update_coins()
 
 
 func _on_objective_changed(text: String) -> void:
 	objective_label.text = text
+	var is_panel := text == GameManager.OBJECTIVES["panel"]
+	marker.visible = is_panel
+	marker_icon.visible = not is_panel
 
 
 func _on_message(text: String) -> void:
 	message_label.text = text
-	message_label.modulate.a = 1.0
+	message_panel.modulate.a = 1.0
 	if _message_tween:
 		_message_tween.kill()
 	_message_tween = create_tween()
 	_message_tween.tween_interval(message_duration)
-	_message_tween.tween_property(message_label, "modulate:a", 0.0, message_fade)
+	_message_tween.tween_property(message_panel, "modulate:a", 0.0, message_fade)
 
 
-# The ResultScreen overlay shows the result; the HUD only hides its own labels.
+# The ResultScreen overlay shows the result; the HUD only hides its own blocks.
 func _on_state_changed(state: GameManager.State) -> void:
 	match state:
 		GameManager.State.WON, GameManager.State.LOST:
-			objective_label.visible = false
-			message_label.modulate.a = 0.0
+			top_left.visible = false
+			top_right.visible = false
+			message_panel.modulate.a = 0.0
 		GameManager.State.PLAYING:
-			objective_label.visible = true
+			top_left.visible = true
+			top_right.visible = true
+
 
 func _on_suspicion_changed(value: float) -> void:
 	detection_bar.value = value
 	detection_bar.modulate = Color(1, 0.85, 0.2).lerp(Color(1, 0.2, 0.15), value / 100.0)
+	detection_percent.text = "%d%%" % roundi(value)
+
+
+# TODO: replace with a GameManager stat once Dmytro exposes a coins signal.
+func _update_coins() -> void:
+	var player := get_tree().current_scene.get_node_or_null("Player")
+	coins_row.visible = player != null
+	if player == null:
+		return
+	UiDots.apply(coin_dots, int(player.coins))
+
+
+func _format_time(seconds: float) -> String:
+	var total := int(seconds)
+	return "%02d:%02d" % [floori(total / 60.0), total % 60]
