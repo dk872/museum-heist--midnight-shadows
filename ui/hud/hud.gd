@@ -1,8 +1,5 @@
 extends CanvasLayer
 
-const AMBER := Color(0.961, 0.651, 0.137)
-const EDGE := Color(0.357, 0.439, 0.565)
-
 @export var message_duration: float = 2.0
 @export var message_fade: float = 0.4
 
@@ -24,12 +21,9 @@ const EDGE := Color(0.357, 0.439, 0.565)
 ]
 
 var _message_tween: Tween
-var _dot_full: StyleBoxFlat
-var _dot_empty: StyleBoxFlat
 
 
 func _ready() -> void:
-	_make_dot_styles()
 	GameManager.suspicion_changed.connect(_on_suspicion_changed)
 	_on_suspicion_changed(GameManager.suspicion)
 	GameManager.objective_changed.connect(_on_objective_changed)
@@ -87,21 +81,7 @@ func _update_coins() -> void:
 	coins_row.visible = player != null
 	if player == null:
 		return
-	var coins := int(player.coins)
-	for i in coin_dots.size():
-		coin_dots[i].add_theme_stylebox_override("panel", _dot_full if i < coins else _dot_empty)
-
-
-
-func _make_dot_styles() -> void:
-	_dot_full = StyleBoxFlat.new()
-	_dot_full.bg_color = AMBER
-	_dot_full.set_corner_radius_all(6)
-	_dot_empty = StyleBoxFlat.new()
-	_dot_empty.draw_center = false
-	_dot_empty.border_color = EDGE
-	_dot_empty.set_border_width_all(2)
-	_dot_empty.set_corner_radius_all(6)
+	UiDots.apply(coin_dots, int(player.coins))
 
 
 func _format_time(seconds: float) -> String:
