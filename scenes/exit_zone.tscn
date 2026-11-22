@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://fc3wse83byun"]
 
-[ext_resource type="Script" path="res://scripts/exit_zone.gd" id="1_2n2ks"]
-[ext_resource type="Texture2D" path="res://assets/objects/exit.svg" id="2_857gn"]
+[ext_resource type="Script" uid="uid://cholaeobsxgjq" path="res://scripts/exit_zone.gd" id="1_2n2ks"]
+[ext_resource type="Texture2D" uid="uid://b52n08mdek15j" path="res://assets/objects/exit.svg" id="2_857gn"]
+[ext_resource type="AudioStream" uid="uid://ct3lp147ksqdu" path="res://assets/audio/exit_victory.mp3" id="3_dwd3s"]
+[ext_resource type="AudioStream" uid="uid://ba67ghu3cbriw" path="res://assets/audio/exit_locked.mp3" id="4_3v2md"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obds8"]
 size = Vector2(56, 56)
@@ -13,24 +15,28 @@ script = ExtResource("1_2n2ks")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1480188684]
 position = Vector2(3, 0)
-scale = Vector2(1, 1)
 texture = ExtResource("2_857gn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=793716168]
 position = Vector2(2.75, -1)
 shape = SubResource("RectangleShape2D_obds8")
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
-
-[node name="ObjectLabel" type="Label" parent="."]
+[node name="ObjectLabel" type="Label" parent="." unique_id=1348490588]
 offset_left = -90.0
 offset_top = -49.0
 offset_right = 90.0
 offset_bottom = -29.0
-mouse_filter = 2
 theme_override_colors/font_color = Color(0.9, 1, 0.95, 1)
 theme_override_colors/font_outline_color = Color(0.03, 0.05, 0.08, 1)
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 14
 text = "EXIT"
 horizontal_alignment = 1
+
+[node name="VictorySound" type="AudioStreamPlayer" parent="." unique_id=919815688]
+stream = ExtResource("3_dwd3s")
+
+[node name="LockedSound" type="AudioStreamPlayer" parent="." unique_id=1678289632]
+stream = ExtResource("4_3v2md")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

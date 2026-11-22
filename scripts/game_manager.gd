@@ -20,6 +20,10 @@ const OBJECTIVES := {
 	"exit": "Escape through the emergency exit",
 }
 
+const MUSIC_PATH := "res://assets/audio/bg_music.mp3"
+const MUSIC_VOLUME_PLAYING: float = -16.0
+const MUSIC_VOLUME_MUTED: float = -24.0
+
 # Debug builds only. Keys: 1 panel, 2 artifact, 3 win, 4 lose, 0 restart level, 9 clear best records.
 var log_signals: bool = true
 var debug_keys: bool = true
@@ -31,12 +35,25 @@ var level_time: float = 0.0
 var suspicion: float = 0.0
 var max_suspicion: float = 0.0
 var current_objective: String = ""
+var bg_music: AudioStreamPlayer
 
 
 func _ready() -> void:
+	_setup_music()
 	if OS.is_debug_build() and log_signals:
 		_connect_debug_log()
 	reset()
+
+
+func _setup_music() -> void:
+	if not ResourceLoader.exists(MUSIC_PATH):
+		return
+	bg_music = AudioStreamPlayer.new()
+	bg_music.stream = load(MUSIC_PATH)
+	bg_music.volume_db = MUSIC_VOLUME_PLAYING
+	bg_music.process_mode = Node.PROCESS_MODE_ALWAYS
+	add_child(bg_music)
+	bg_music.play()
 
 
 func _process(delta: float) -> void:
@@ -134,6 +151,8 @@ func _set_state(new_state: State) -> void:
 	if new_state == state:
 		return
 	state = new_state
+	if is_instance_valid(bg_music):
+		bg_music.volume_db = MUSIC_VOLUME_PLAYING if state == State.PLAYING else MUSIC_VOLUME_MUTED
 	state_changed.emit(state)
 
 
@@ -169,6 +188,7 @@ func _connect_debug_log() -> void:
 			connect(sig_name, func(s): print("[GameManager] state -> ", State.keys()[s]))
 		else:
 			connect(sig_name, func(arg): print("[GameManager] ", sig_name, ": ", arg))
+
 
 func emit_noise(position: Vector2, radius: float, kind: String) -> void:
 	if state != State.PLAYING:

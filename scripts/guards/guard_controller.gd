@@ -45,6 +45,7 @@ var _last_seen: Vector2
 var _player: Node2D
 @onready var sight: RayCast2D = $Sight
 @onready var cone: Polygon2D = $VisionCone
+@onready var alert_sound: AudioStreamPlayer = $AlertSound
 
 func _ready() -> void:
 	add_to_group("guards")
@@ -79,6 +80,8 @@ func reset_guard() -> void:
 	_interest_priority = 0
 	_search_step = 0
 	_last_visible = false
+	if is_instance_valid(alert_sound) and alert_sound.playing:
+		alert_sound.stop()
 	if is_instance_valid(_notice):
 		_notice.text = ""
 
@@ -93,6 +96,12 @@ func _physics_process(delta: float) -> void:
 	_path_timer -= delta
 	_notice_time -= delta
 	var visible_player := can_see_player()
+	if visible_player:
+		if not _last_visible and is_instance_valid(alert_sound) and not alert_sound.playing:
+			alert_sound.play()
+	else:
+		if is_instance_valid(alert_sound) and alert_sound.playing:
+			alert_sound.stop()
 	_last_visible = visible_player
 	if visible_player:
 		if _scanning:

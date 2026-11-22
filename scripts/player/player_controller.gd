@@ -7,34 +7,49 @@ var coins: int = 3
 var _footstep_time: float = 0.0
 var _coin_cooldown: float = 0.0
 
+# Get references to child nodes
+@onready var interaction_area = $InteractionArea
+@onready var footstep_sound: AudioStreamPlayer = $FootstepSound
+@onready var coin_sound: AudioStreamPlayer2D = $CoinSound
+
 func _ready() -> void:
 	GameManager.run_reset.connect(func(): coins = 3)
-
-# Get a reference to our interaction area
-@onready var interaction_area = $InteractionArea
 
 func _physics_process(delta: float) -> void:
 	if GameManager.state != GameManager.State.PLAYING:
 		velocity = Vector2.ZERO
+		if footstep_sound.playing:
+			footstep_sound.stop()
 		return
+		
 	look_at(get_global_mouse_position())
 
-	var current_speed = normal_speed
-	if Input.is_action_pressed("sneak"):
-		current_speed = sneak_speed
+	var is_sneaking := Input.is_action_pressed("sneak")
+	var current_speed := sneak_speed if is_sneaking else normal_speed
 
-	var input_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	var input_direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	velocity = input_direction * current_speed
 	var previous_position := global_position
 	move_and_slide()
+	
 	_coin_cooldown = maxf(0.0, _coin_cooldown - delta)
+	
 	if global_position.distance_to(previous_position) > 0.1:
+		# Play footsteps audio only when moving normally (silent when sneaking)
+		if not is_sneaking:
+			if not footstep_sound.playing:
+				footstep_sound.play()
+		elif footstep_sound.playing:
+			footstep_sound.stop()
+			
 		_footstep_time -= delta
 		if _footstep_time <= 0.0:
 			_footstep_time = 0.45
-			GameManager.emit_noise(global_position, 35.0 if Input.is_action_pressed("sneak") else 150.0, "footstep")
+			GameManager.emit_noise(global_position, 35.0 if is_sneaking else 150.0, "footstep")
 	else:
 		_footstep_time = 0.0
+		if footstep_sound.playing:
+			footstep_sound.stop()
 
 # Using _unhandled_input for single presses (so it doesn't trigger 60 times a second)
 func _unhandled_input(event: InputEvent) -> void:
@@ -72,5 +87,11 @@ func throw_coin() -> void:
 		target = hit.position + hit.normal * 28.0
 	coins -= 1
 	_coin_cooldown = 0.6
+	
+	# Position the 2D audio player at the coin landing point and play
+	coin_sound.global_position = target
+	coin_sound.play()
+	
 	GameManager.emit_noise(target, 240.0, "coin")
 	GameManager.show_message("Coins left: %d" % coins)
+	

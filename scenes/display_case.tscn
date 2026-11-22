@@ -1,11 +1,13 @@
-[gd_scene format=3 load_steps=7 uid="uid://b3odjv26fkyqq"]
+[gd_scene format=3 uid="uid://b3odjv26fkyqq"]
 
-[ext_resource type="Script" path="res://scripts/display_case.gd" id="1_c4s7v"]
-[ext_resource type="Texture2D" path="res://assets/ui/emblem_flat.svg" id="1_pqt5d"]
-[ext_resource type="Script" path="res://ui/hold_bar.gd" id="2_hold"]
+[ext_resource type="Script" uid="uid://cuiotatkoi4m3" path="res://scripts/display_case.gd" id="1_c4s7v"]
+[ext_resource type="Texture2D" uid="uid://c65bmk6vehscl" path="res://assets/ui/emblem_flat.svg" id="1_pqt5d"]
+[ext_resource type="Script" uid="uid://b02x7ayhm5ndv" path="res://ui/hold_bar.gd" id="2_hold"]
+[ext_resource type="AudioStream" uid="uid://b81y0347nmf4h" path="res://assets/audio/hack_loop.mp3" id="4_8gdlo"]
+[ext_resource type="AudioStream" uid="uid://ctq6d4uk7h8ks" path="res://assets/audio/hack_abort.mp3" id="5_c4xwq"]
+[ext_resource type="AudioStream" uid="uid://d6l1utgy2qxp" path="res://assets/audio/artifact_stolen.mp3" id="6_an41e"]
 
 [sub_resource type="Gradient" id="glow_gradient"]
-offsets = PackedFloat32Array(0, 1)
 colors = PackedColorArray(0.961, 0.651, 0.137, 0.35, 0.961, 0.651, 0.137, 0)
 
 [sub_resource type="GradientTexture2D" id="glow_texture"]
@@ -27,7 +29,7 @@ position = Vector2(-4.7683716e-07, -1)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("1_pqt5d")
 
-[node name="Glow" type="Sprite2D" parent="Sprite2D"]
+[node name="Glow" type="Sprite2D" parent="Sprite2D" unique_id=646220638]
 z_index = -1
 scale = Vector2(1.3333334, 1.3333334)
 texture = SubResource("glow_texture")
@@ -36,12 +38,11 @@ texture = SubResource("glow_texture")
 position = Vector2(-1, -1)
 shape = SubResource("RectangleShape2D_obds8")
 
-[node name="ObjectLabel" type="Label" parent="."]
+[node name="ObjectLabel" type="Label" parent="." unique_id=2140450831]
 offset_left = -90.0
 offset_top = -49.0
 offset_right = 90.0
 offset_bottom = -29.0
-mouse_filter = 2
 theme_override_colors/font_color = Color(0.9, 1, 0.95, 1)
 theme_override_colors/font_outline_color = Color(0.03, 0.05, 0.08, 1)
 theme_override_constants/outline_size = 5
@@ -49,7 +50,7 @@ theme_override_font_sizes/font_size = 14
 text = "ARTIFACT · Hold E"
 horizontal_alignment = 1
 
-[node name="HoldBar" type="ProgressBar" parent="."]
+[node name="HoldBar" type="ProgressBar" parent="." unique_id=801380785]
 visible = false
 offset_left = -36.0
 offset_top = -62.0
@@ -60,3 +61,12 @@ max_value = 1.0
 step = 0.001
 show_percentage = false
 script = ExtResource("2_hold")
+
+[node name="HackLoopSound" type="AudioStreamPlayer" parent="." unique_id=762155540]
+stream = ExtResource("4_8gdlo")
+
+[node name="AbortSound" type="AudioStreamPlayer" parent="." unique_id=1789888090]
+stream = ExtResource("5_c4xwq")
+
+[node name="SuccessSound" type="AudioStreamPlayer" parent="." unique_id=566638451]
+stream = ExtResource("6_an41e")

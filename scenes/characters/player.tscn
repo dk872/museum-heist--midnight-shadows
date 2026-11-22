@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://oc5b163tu0dp"]
 
-[ext_resource type="Script" path="res://scripts/player/player_controller.gd" id="1_rp718"]
+[ext_resource type="Script" uid="uid://c2gaqcfl1anrh" path="res://scripts/player/player_controller.gd" id="1_rp718"]
 [ext_resource type="Texture2D" uid="uid://c7ftmxju5nobt" path="res://assets/sprites/Hitman 1/hitman1_stand.png" id="2_yewv4"]
+[ext_resource type="AudioStream" uid="uid://cc16kw1g4me1a" path="res://assets/audio/footsteps.mp3" id="3_76oj4"]
+[ext_resource type="AudioStream" uid="uid://dm6d0agsjhxc8" path="res://assets/audio/coin_drop.mp3" id="4_dyp2m"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_obds8"]
 radius = 25.0
@@ -30,3 +32,9 @@ texture = ExtResource("2_yewv4")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=1760617966]
 position = Vector2(51, 0)
 shape = SubResource("RectangleShape2D_obds8")
+
+[node name="FootstepSound" type="AudioStreamPlayer" parent="." unique_id=1513961830]
+stream = ExtResource("3_76oj4")
+
+[node name="CoinSound" type="AudioStreamPlayer2D" parent="." unique_id=2012087392]
+stream = ExtResource("4_dyp2m")
