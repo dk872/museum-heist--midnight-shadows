@@ -15,19 +15,20 @@ var _notice: Label
 var _notice_time: float = 0.0
 var _last_visible: bool = false
 
-@export var patrol_points := PackedVector2Array([Vector2.ZERO, Vector2(260, 0)])
-@export var patrol_speed: float = 80.0
-@export var investigate_speed: float = 110.0
-@export var chase_speed: float = 185.0
+@export var patrol_points := PackedVector2Array([Vector2.ZERO, Vector2(600, 0)])
+@export var patrol_speed: float = 60.0
+@export var investigate_speed: float = 80.0
+@export var chase_speed: float = 120.0
 @export var approach_distance: float = 40.0
 @export_range(1.0, 100.0) var catch_distance: float = 50.0
-@export var vision_range: float = 280.0
-@export_range(1, 179) var vision_angle: float = 60.0
-@export var detection_near: float = 65.0
-@export var detection_far: float = 22.0
+@export var vision_range: float = 340.0
+@export_range(1, 179) var vision_angle: float = 65.0
+@export var detection_near: float = 75.0
+@export var detection_far: float = 28.0
 @export var suspicion_decay: float = 25.0
 @export var investigate_duration: float = 2.0
-@export_range(0.5, 10.0) var scan_duration: float = 4.0
+@export_range(0.5, 10.0) var scan_duration: float = 1.6
+@export_range(2.0, 30.0) var scan_interval: float = 12.0
 
 var _scan_delay: float = 0.0
 var _scanning: bool = false
@@ -88,6 +89,8 @@ func reset_guard() -> void:
 func _physics_process(delta: float) -> void:
 	if GameManager.state != GameManager.State.PLAYING:
 		velocity = Vector2.ZERO
+		if is_instance_valid(alert_sound) and alert_sound.playing:
+			alert_sound.stop()
 		return
 	if not is_instance_valid(_player):
 		_player = get_tree().get_first_node_in_group("player") as Node2D
@@ -139,7 +142,7 @@ func _physics_process(delta: float) -> void:
 			elif not visible_player:
 				# Search time starts on arrival, not when the player disappears.
 				_search_time -= delta
-				rotation += delta * 0.7
+				rotation += delta * 1.1
 				if _search_time <= 0.0 and suspicion <= 0.0:
 					_next_search_point()
 	var previous_position := global_position
@@ -160,7 +163,7 @@ func _physics_process(delta: float) -> void:
 		_notice.text = "? Searching" if state == State.INVESTIGATE else ("Looking..." if _scanning else ("Sentry" if role == Role.SENTRY else ""))
 
 func _schedule_scan() -> void:
-	_scan_delay = 7.0 if predictable_scans else randf_range(5.0, 10.0)
+	_scan_delay = scan_interval if predictable_scans else randf_range(scan_interval * 0.7, scan_interval * 1.3)
 
 func _patrol_with_scan(delta: float) -> void:
 	if not _scanning:
@@ -198,10 +201,10 @@ func _patrol() -> void:
 	if patrol_points.is_empty():
 		return
 	var target := _origin + patrol_points[_waypoint]
-	if global_position.distance_to(target) < 6.0:
+	if global_position.distance_to(target) < 12.0:
 		_waypoint = (_waypoint + 1) % patrol_points.size()
 		target = _origin + patrol_points[_waypoint]
-	_move_toward(target, patrol_speed, get_physics_process_delta_time())
+	_move_toward(target, patrol_speed, get_physics_process_delta_time(), 12.0)
 
 func _move_toward(target: Vector2, speed: float, delta: float, tolerance: float = 6.0) -> void:
 	if global_position.distance_to(target) <= tolerance:
@@ -216,7 +219,7 @@ func _move_toward(target: Vector2, speed: float, delta: float, tolerance: float 
 		_path_timer = 0.5
 		if _path.size() > 1:
 			_path.remove_at(0)
-	while not _path.is_empty() and global_position.distance_to(_path[0]) < 6.0:
+	while not _path.is_empty() and global_position.distance_to(_path[0]) < 12.0:
 		_path.remove_at(0)
 	var destination := target
 	if not _path.is_empty():

@@ -19,7 +19,7 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 0.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obds8"]
-size = Vector2(26, 26)
+size = Vector2(119, 138.5)
 
 [node name="DisplayCase" type="Area2D" unique_id=1046435963 groups=["interactable"]]
 script = ExtResource("1_c4s7v")
@@ -35,7 +35,7 @@ scale = Vector2(1.3333334, 1.3333334)
 texture = SubResource("glow_texture")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=340761690]
-position = Vector2(-1, -1)
+position = Vector2(2, 13.75)
 shape = SubResource("RectangleShape2D_obds8")
 
 [node name="ObjectLabel" type="Label" parent="." unique_id=2140450831]

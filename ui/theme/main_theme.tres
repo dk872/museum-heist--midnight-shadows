@@ -4,35 +4,11 @@
 [ext_resource type="FontFile" uid="uid://4r2v287enkxv" path="res://ui/theme/fonts/Barlow-SemiBold.ttf" id="3_barlow_sb"]
 [ext_resource type="FontFile" uid="uid://ufenhhcgteey" path="res://ui/theme/fonts/ChakraPetch-SemiBold.ttf" id="4_chakra_sb"]
 [ext_resource type="FontFile" uid="uid://coidddh1g15l3" path="res://ui/theme/fonts/ChakraPetch-Bold.ttf" id="5_chakra_b"]
-[ext_resource type="FontFile" path="res://ui/theme/fonts/Barlow-Bold.ttf" id="6_barlow_b"]
-
-[sub_resource type="FontVariation" id="chakra_caps"]
-base_font = ExtResource("4_chakra_sb")
-spacing_glyph = 3
+[ext_resource type="FontFile" uid="uid://c1nh0bk3g1crf" path="res://ui/theme/fonts/Barlow-Bold.ttf" id="6_barlow_b"]
 
 [sub_resource type="FontVariation" id="chakra_button"]
 base_font = ExtResource("4_chakra_sb")
 spacing_glyph = 4
-
-[sub_resource type="FontVariation" id="chakra_display"]
-base_font = ExtResource("5_chakra_b")
-spacing_glyph = 2
-
-[sub_resource type="StyleBoxFlat" id="keycap"]
-content_margin_left = 6.0
-content_margin_top = 2.0
-content_margin_right = 6.0
-content_margin_bottom = 2.0
-draw_center = false
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.357, 0.439, 0.565, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id="btn_disabled"]
 content_margin_left = 22.0
@@ -114,12 +90,64 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
+[sub_resource type="FontVariation" id="chakra_caps"]
+base_font = ExtResource("4_chakra_sb")
+spacing_glyph = 3
+
+[sub_resource type="StyleBoxFlat" id="card_shadow"]
+bg_color = Color(0, 0, 0, 0)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+shadow_color = Color(0, 0, 0, 0.2)
+shadow_size = 56
+shadow_offset = Vector2(0, 18)
+
+[sub_resource type="FontVariation" id="chakra_b_s5"]
+base_font = ExtResource("5_chakra_b")
+spacing_glyph = 5
+
+[sub_resource type="FontVariation" id="chakra_display"]
+base_font = ExtResource("5_chakra_b")
+spacing_glyph = 2
+
+[sub_resource type="StyleBoxFlat" id="keycap"]
+content_margin_left = 6.0
+content_margin_top = 2.0
+content_margin_right = 6.0
+content_margin_bottom = 2.0
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.357, 0.439, 0.565, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="FontVariation" id="chakra_sb_s5"]
+base_font = ExtResource("4_chakra_sb")
+spacing_glyph = 5
+
 [sub_resource type="StyleBoxFlat" id="panel_bg"]
 content_margin_left = 28.0
 content_margin_top = 24.0
 content_margin_right = 28.0
 content_margin_bottom = 24.0
 bg_color = Color(0.11, 0.141, 0.188, 0.97)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.357, 0.439, 0.565, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="pause_card"]
+bg_color = Color(0.11, 0.141, 0.188, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -149,53 +177,21 @@ corner_radius_top_right = 1
 corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 
-[sub_resource type="StyleBoxFlat" id="steel_panel"]
-content_margin_left = 12.0
-content_margin_top = 8.0
-content_margin_right = 12.0
-content_margin_bottom = 8.0
-bg_color = Color(0.165, 0.208, 0.271, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.357, 0.439, 0.565, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-
-[sub_resource type="FontVariation" id="barlow_stamp"]
-base_font = ExtResource("6_barlow_b")
-spacing_glyph = 5
-
 [sub_resource type="StyleBoxFlat" id="card_open"]
 bg_color = Color(0.11, 0.141, 0.188, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
-border_width_bottom = 0
 border_color = Color(0.357, 0.439, 0.565, 1)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 
-[sub_resource type="StyleBoxFlat" id="card_shadow"]
-bg_color = Color(0, 0, 0, 0)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-shadow_color = Color(0, 0, 0, 0.2)
-shadow_size = 56
-shadow_offset = Vector2(0, 18)
-
 [sub_resource type="Gradient" id="header_gradient"]
-offsets = PackedFloat32Array(0, 1)
 colors = PackedColorArray(0.231, 0.29, 0.361, 1, 0.165, 0.208, 0.271, 1)
 
 [sub_resource type="GradientTexture2D" id="header_gradient_tex"]
 gradient = SubResource("header_gradient")
 width = 8
-height = 64
-fill_from = Vector2(0, 0)
 fill_to = Vector2(0, 1)
 
 [sub_resource type="StyleBoxTexture" id="report_header"]
@@ -205,45 +201,13 @@ content_margin_right = 18.0
 content_margin_bottom = 10.0
 texture = SubResource("header_gradient_tex")
 
-[sub_resource type="StyleBoxFlat" id="stat_box"]
-content_margin_left = 4.0
-content_margin_top = 14.0
-content_margin_right = 4.0
-content_margin_bottom = 10.0
-bg_color = Color(0.039, 0.051, 0.071, 0.5)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.227, 0.29, 0.376, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-
-[sub_resource type="FontVariation" id="chakra_b_s1"]
-base_font = ExtResource("5_chakra_b")
-spacing_glyph = 1
-
-[sub_resource type="FontVariation" id="chakra_b_s3"]
-base_font = ExtResource("5_chakra_b")
-spacing_glyph = 3
-
 [sub_resource type="FontVariation" id="chakra_b_s4"]
 base_font = ExtResource("5_chakra_b")
 spacing_glyph = 4
 
-[sub_resource type="FontVariation" id="chakra_b_s5"]
-base_font = ExtResource("5_chakra_b")
+[sub_resource type="FontVariation" id="barlow_stamp"]
+base_font = ExtResource("6_barlow_b")
 spacing_glyph = 5
-
-[sub_resource type="FontVariation" id="chakra_sb_s2"]
-base_font = ExtResource("4_chakra_sb")
-spacing_glyph = 2
-
-[sub_resource type="FontVariation" id="chakra_sb_s4"]
-base_font = ExtResource("4_chakra_sb")
-spacing_glyph = 4
 
 [sub_resource type="StyleBoxFlat" id="stamp_box"]
 content_margin_left = 12.0
@@ -261,32 +225,21 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[sub_resource type="StyleBoxFlat" id="tag_box"]
-content_margin_left = 8.0
-content_margin_top = 1.0
-content_margin_right = 8.0
-content_margin_bottom = 1.0
-bg_color = Color(0.961, 0.651, 0.137, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-
-[sub_resource type="FontVariation" id="chakra_sb_s5"]
-base_font = ExtResource("4_chakra_sb")
-spacing_glyph = 5
-
-[sub_resource type="StyleBoxFlat" id="pause_card"]
-bg_color = Color(0.11, 0.141, 0.188, 1)
+[sub_resource type="StyleBoxFlat" id="stat_box"]
+content_margin_left = 4.0
+content_margin_top = 14.0
+content_margin_right = 4.0
+content_margin_bottom = 10.0
+bg_color = Color(0.039, 0.051, 0.071, 0.5)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.357, 0.439, 0.565, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
+border_color = Color(0.227, 0.29, 0.376, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxFlat" id="stat_box_small"]
 content_margin_left = 10.0
@@ -304,9 +257,56 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
+[sub_resource type="FontVariation" id="chakra_sb_s4"]
+base_font = ExtResource("4_chakra_sb")
+spacing_glyph = 4
+
+[sub_resource type="FontVariation" id="chakra_sb_s2"]
+base_font = ExtResource("4_chakra_sb")
+spacing_glyph = 2
+
+[sub_resource type="FontVariation" id="chakra_b_s1"]
+base_font = ExtResource("5_chakra_b")
+spacing_glyph = 1
+
+[sub_resource type="StyleBoxFlat" id="steel_panel"]
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+content_margin_bottom = 8.0
+bg_color = Color(0.165, 0.208, 0.271, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.357, 0.439, 0.565, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="FontVariation" id="chakra_b_s3"]
+base_font = ExtResource("5_chakra_b")
+spacing_glyph = 3
+
+[sub_resource type="StyleBoxFlat" id="tag_box"]
+content_margin_left = 8.0
+content_margin_top = 1.0
+content_margin_right = 8.0
+content_margin_bottom = 1.0
+bg_color = Color(0.961, 0.651, 0.137, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
 [resource]
 default_font = ExtResource("1_barlow")
 default_font_size = 18
+BodyLabel/base_type = &"Label"
+BodyLabel/colors/font_color = Color(0.863, 0.902, 0.949, 1)
+BodyLabel/font_sizes/font_size = 20
+BodyLabel/fonts/font = ExtResource("3_barlow_sb")
 Button/colors/font_color = Color(0.863, 0.902, 0.949, 1)
 Button/colors/font_disabled_color = Color(0.541, 0.608, 0.702, 1)
 Button/colors/font_focus_color = Color(1, 1, 1, 1)
@@ -319,14 +319,20 @@ Button/styles/focus = SubResource("btn_focus")
 Button/styles/hover = SubResource("btn_hover")
 Button/styles/normal = SubResource("btn_normal")
 Button/styles/pressed = SubResource("btn_pressed")
-BodyLabel/base_type = &"Label"
-BodyLabel/colors/font_color = Color(0.863, 0.902, 0.949, 1)
-BodyLabel/font_sizes/font_size = 20
-BodyLabel/fonts/font = ExtResource("3_barlow_sb")
 CaptionLabel/base_type = &"Label"
 CaptionLabel/colors/font_color = Color(0.541, 0.608, 0.702, 1)
 CaptionLabel/font_sizes/font_size = 14
 CaptionLabel/fonts/font = SubResource("chakra_caps")
+CardShadow/base_type = &"Panel"
+CardShadow/styles/panel = SubResource("card_shadow")
+HeaderMetaLabel/base_type = &"Label"
+HeaderMetaLabel/colors/font_color = Color(0.541, 0.608, 0.702, 1)
+HeaderMetaLabel/font_sizes/font_size = 12
+HeaderMetaLabel/fonts/font = SubResource("chakra_caps")
+HeaderTitleLabel/base_type = &"Label"
+HeaderTitleLabel/colors/font_color = Color(0.863, 0.902, 0.949, 1)
+HeaderTitleLabel/font_sizes/font_size = 13
+HeaderTitleLabel/fonts/font = SubResource("chakra_b_s5")
 HeadingLabel/base_type = &"Label"
 HeadingLabel/colors/font_color = Color(0.863, 0.902, 0.949, 1)
 HeadingLabel/font_sizes/font_size = 28
@@ -341,84 +347,74 @@ HudLabel/colors/font_shadow_color = Color(0.039, 0.051, 0.071, 1)
 HudLabel/constants/shadow_offset_y = 1
 HudLabel/font_sizes/font_size = 20
 HudLabel/fonts/font = ExtResource("3_barlow_sb")
-Label/colors/font_color = Color(0.863, 0.902, 0.949, 1)
-Label/font_sizes/font_size = 18
-MutedLabel/base_type = &"Label"
-MutedLabel/colors/font_color = Color(0.541, 0.608, 0.702, 1)
-MutedLabel/font_sizes/font_size = 16
-MutedLabel/fonts/font = ExtResource("1_barlow")
-PanelContainer/styles/panel = SubResource("panel_bg")
-ProgressBar/styles/background = SubResource("pb_bg")
-ProgressBar/styles/fill = SubResource("pb_fill")
-StatLabel/base_type = &"Label"
-StatLabel/colors/font_color = Color(0.863, 0.902, 0.949, 1)
-StatLabel/font_sizes/font_size = 24
-StatLabel/fonts/font = SubResource("chakra_display")
-SteelPanel/base_type = &"PanelContainer"
-SteelPanel/styles/panel = SubResource("steel_panel")
-TitleLabel/base_type = &"Label"
-TitleLabel/colors/font_color = Color(0.863, 0.902, 0.949, 1)
-TitleLabel/font_sizes/font_size = 48
-TitleLabel/fonts/font = SubResource("chakra_display")
 KeyCap/base_type = &"PanelContainer"
 KeyCap/styles/panel = SubResource("keycap")
 KeyLabel/base_type = &"Label"
 KeyLabel/colors/font_color = Color(0.863, 0.902, 0.949, 1)
 KeyLabel/font_sizes/font_size = 14
 KeyLabel/fonts/font = SubResource("chakra_caps")
+Label/colors/font_color = Color(0.863, 0.902, 0.949, 1)
+Label/font_sizes/font_size = 18
+MutedLabel/base_type = &"Label"
+MutedLabel/colors/font_color = Color(0.541, 0.608, 0.702, 1)
+MutedLabel/font_sizes/font_size = 16
+MutedLabel/fonts/font = ExtResource("1_barlow")
+ObjectiveCaptionLabel/base_type = &"Label"
+ObjectiveCaptionLabel/colors/font_color = Color(0.541, 0.608, 0.702, 1)
+ObjectiveCaptionLabel/font_sizes/font_size = 12
+ObjectiveCaptionLabel/fonts/font = SubResource("chakra_sb_s5")
+PanelContainer/styles/panel = SubResource("panel_bg")
+PauseButton/base_type = &"Button"
+PauseButton/font_sizes/font_size = 16
+PauseButton/fonts/font = SubResource("chakra_sb_s5")
+PauseCard/base_type = &"PanelContainer"
+PauseCard/styles/panel = SubResource("pause_card")
+ProgressBar/styles/background = SubResource("pb_bg")
+ProgressBar/styles/fill = SubResource("pb_fill")
+ReportButton/base_type = &"Button"
+ReportButton/font_sizes/font_size = 15
 ReportCard/base_type = &"PanelContainer"
 ReportCard/styles/panel = SubResource("card_open")
-StampPanel/base_type = &"PanelContainer"
-StampPanel/styles/panel = SubResource("stamp_box")
+ReportHeader/base_type = &"PanelContainer"
+ReportHeader/styles/panel = SubResource("report_header")
+ReportTitleLabel/base_type = &"Label"
+ReportTitleLabel/colors/font_color = Color(0.863, 0.902, 0.949, 1)
+ReportTitleLabel/font_sizes/font_size = 42
+ReportTitleLabel/fonts/font = SubResource("chakra_b_s4")
 StampLabel/base_type = &"Label"
 StampLabel/colors/font_color = Color(0.961, 0.651, 0.137, 1)
 StampLabel/font_sizes/font_size = 18
 StampLabel/fonts/font = SubResource("barlow_stamp")
+StampPanel/base_type = &"PanelContainer"
+StampPanel/styles/panel = SubResource("stamp_box")
+StatBox/base_type = &"PanelContainer"
+StatBox/styles/panel = SubResource("stat_box")
+StatBoxSmall/base_type = &"PanelContainer"
+StatBoxSmall/styles/panel = SubResource("stat_box_small")
+StatCaptionLabel/base_type = &"Label"
+StatCaptionLabel/colors/font_color = Color(0.541, 0.608, 0.702, 1)
+StatCaptionLabel/font_sizes/font_size = 11
+StatCaptionLabel/fonts/font = SubResource("chakra_sb_s4")
+StatLabel/base_type = &"Label"
+StatLabel/colors/font_color = Color(0.863, 0.902, 0.949, 1)
+StatLabel/font_sizes/font_size = 24
+StatLabel/fonts/font = SubResource("chakra_display")
+StatSubLabel/base_type = &"Label"
+StatSubLabel/colors/font_color = Color(0.29, 0.353, 0.439, 1)
+StatSubLabel/font_sizes/font_size = 11
+StatSubLabel/fonts/font = SubResource("chakra_sb_s2")
+StatValueLabel/base_type = &"Label"
+StatValueLabel/colors/font_color = Color(0.863, 0.902, 0.949, 1)
+StatValueLabel/font_sizes/font_size = 28
+StatValueLabel/fonts/font = SubResource("chakra_b_s1")
+SteelPanel/base_type = &"PanelContainer"
+SteelPanel/styles/panel = SubResource("steel_panel")
 TagLabel/base_type = &"Label"
 TagLabel/colors/font_color = Color(0.055, 0.071, 0.094, 1)
 TagLabel/font_sizes/font_size = 10
 TagLabel/fonts/font = SubResource("chakra_b_s3")
 TagLabel/styles/normal = SubResource("tag_box")
-CardShadow/base_type = &"Panel"
-CardShadow/styles/panel = SubResource("card_shadow")
-ReportHeader/base_type = &"PanelContainer"
-ReportHeader/styles/panel = SubResource("report_header")
-HeaderTitleLabel/base_type = &"Label"
-HeaderTitleLabel/colors/font_color = Color(0.863, 0.902, 0.949, 1)
-HeaderTitleLabel/font_sizes/font_size = 13
-HeaderTitleLabel/fonts/font = SubResource("chakra_b_s5")
-HeaderMetaLabel/base_type = &"Label"
-HeaderMetaLabel/colors/font_color = Color(0.541, 0.608, 0.702, 1)
-HeaderMetaLabel/font_sizes/font_size = 12
-HeaderMetaLabel/fonts/font = SubResource("chakra_caps")
-ReportTitleLabel/base_type = &"Label"
-ReportTitleLabel/colors/font_color = Color(0.863, 0.902, 0.949, 1)
-ReportTitleLabel/font_sizes/font_size = 42
-ReportTitleLabel/fonts/font = SubResource("chakra_b_s4")
-StatBox/base_type = &"PanelContainer"
-StatBox/styles/panel = SubResource("stat_box")
-StatCaptionLabel/base_type = &"Label"
-StatCaptionLabel/colors/font_color = Color(0.541, 0.608, 0.702, 1)
-StatCaptionLabel/font_sizes/font_size = 11
-StatCaptionLabel/fonts/font = SubResource("chakra_sb_s4")
-StatValueLabel/base_type = &"Label"
-StatValueLabel/colors/font_color = Color(0.863, 0.902, 0.949, 1)
-StatValueLabel/font_sizes/font_size = 28
-StatValueLabel/fonts/font = SubResource("chakra_b_s1")
-StatSubLabel/base_type = &"Label"
-StatSubLabel/colors/font_color = Color(0.29, 0.353, 0.439, 1)
-StatSubLabel/font_sizes/font_size = 11
-StatSubLabel/fonts/font = SubResource("chakra_sb_s2")
-ReportButton/base_type = &"Button"
-ReportButton/font_sizes/font_size = 15
-PauseCard/base_type = &"PanelContainer"
-PauseCard/styles/panel = SubResource("pause_card")
-StatBoxSmall/base_type = &"PanelContainer"
-StatBoxSmall/styles/panel = SubResource("stat_box_small")
-ObjectiveCaptionLabel/base_type = &"Label"
-ObjectiveCaptionLabel/colors/font_color = Color(0.541, 0.608, 0.702, 1)
-ObjectiveCaptionLabel/font_sizes/font_size = 12
-ObjectiveCaptionLabel/fonts/font = SubResource("chakra_sb_s5")
-PauseButton/base_type = &"Button"
-PauseButton/font_sizes/font_size = 16
-PauseButton/fonts/font = SubResource("chakra_sb_s5")
+TitleLabel/base_type = &"Label"
+TitleLabel/colors/font_color = Color(0.863, 0.902, 0.949, 1)
+TitleLabel/font_sizes/font_size = 48
+TitleLabel/fonts/font = SubResource("chakra_display")

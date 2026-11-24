@@ -6,7 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://ba67ghu3cbriw" path="res://assets/audio/exit_locked.mp3" id="4_3v2md"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obds8"]
-size = Vector2(56, 56)
+size = Vector2(131.25, 124)
 
 [node name="ExitZone" type="Area2D" unique_id=1524303452]
 position = Vector2(14, 9)
@@ -18,7 +18,7 @@ position = Vector2(3, 0)
 texture = ExtResource("2_857gn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=793716168]
-position = Vector2(2.75, -1)
+position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_obds8")
 
 [node name="ObjectLabel" type="Label" parent="." unique_id=1348490588]
