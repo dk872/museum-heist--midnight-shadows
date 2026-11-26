@@ -322,6 +322,33 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
+[sub_resource type="StyleBoxFlat" id="scroll_track"]
+content_margin_left = 3.0
+content_margin_right = 3.0
+bg_color = Color(0.039, 0.051, 0.071, 0.5)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="scroll_grabber"]
+content_margin_left = 3.0
+content_margin_right = 3.0
+bg_color = Color(0.357, 0.439, 0.565, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="scroll_grabber_hl"]
+content_margin_left = 3.0
+content_margin_right = 3.0
+bg_color = Color(0.478, 0.573, 0.706, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
 [resource]
 default_font = ExtResource("1_barlow")
 default_font_size = 18
@@ -383,6 +410,8 @@ KeyLabel/font_sizes/font_size = 14
 KeyLabel/fonts/font = SubResource("chakra_caps")
 Label/colors/font_color = Color(0.863, 0.902, 0.949, 1)
 Label/font_sizes/font_size = 18
+LicenseLabel/base_type = &"MutedLabel"
+LicenseLabel/font_sizes/font_size = 12
 MutedLabel/base_type = &"Label"
 MutedLabel/colors/font_color = Color(0.541, 0.608, 0.702, 1)
 MutedLabel/font_sizes/font_size = 16
@@ -448,3 +477,8 @@ TitleLabel/base_type = &"Label"
 TitleLabel/colors/font_color = Color(0.863, 0.902, 0.949, 1)
 TitleLabel/font_sizes/font_size = 48
 TitleLabel/fonts/font = SubResource("chakra_display")
+VScrollBar/styles/grabber = SubResource("scroll_grabber")
+VScrollBar/styles/grabber_highlight = SubResource("scroll_grabber_hl")
+VScrollBar/styles/grabber_pressed = SubResource("scroll_grabber_hl")
+VScrollBar/styles/scroll = SubResource("scroll_track")
+VScrollBar/styles/scroll_focus = SubResource("scroll_track")

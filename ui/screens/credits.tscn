@@ -1,0 +1,415 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://ui/screens/credits.gd" id="1_credits"]
+[ext_resource type="Texture2D" path="res://assets/ui/emblem_watermark.svg" id="2_watermark"]
+
+[sub_resource type="Gradient" id="card_gradient"]
+offsets = PackedFloat32Array(0, 1)
+colors = PackedColorArray(0.137, 0.176, 0.227, 1, 0.11, 0.141, 0.188, 1)
+
+[sub_resource type="GradientTexture2D" id="card_gradient_tex"]
+gradient = SubResource("card_gradient")
+width = 8
+height = 64
+fill_from = Vector2(0, 0)
+fill_to = Vector2(0, 1)
+
+[node name="Credits" type="CanvasLayer"]
+process_mode = 3
+layer = 30
+script = ExtResource("1_credits")
+
+[node name="Root" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dim" type="ColorRect" parent="Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.031, 0.039, 0.055, 0.7)
+
+[node name="Slide" type="Control" parent="Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Shadow" type="Panel" parent="Root/Slide"]
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"CardShadow"
+
+[node name="Card" type="PanelContainer" parent="Root/Slide"]
+custom_minimum_size = Vector2(520, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+clip_contents = true
+theme_type_variation = &"PauseCard"
+
+[node name="GradientInset" type="MarginContainer" parent="Root/Slide/Card"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
+
+[node name="Gradient" type="TextureRect" parent="Root/Slide/Card/GradientInset"]
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("card_gradient_tex")
+expand_mode = 1
+
+[node name="WatermarkAnchor" type="Control" parent="Root/Slide/Card"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Watermark" type="TextureRect" parent="Root/Slide/Card/WatermarkAnchor"]
+modulate = Color(0.863, 0.902, 0.949, 0.06)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -190.0
+offset_top = -190.0
+offset_right = 70.0
+offset_bottom = 70.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+texture = ExtResource("2_watermark")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBox" type="VBoxContainer" parent="Root/Slide/Card"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Header" type="PanelContainer" parent="Root/Slide/Card/VBox"]
+layout_mode = 2
+theme_type_variation = &"ReportHeader"
+
+[node name="Title" type="Label" parent="Root/Slide/Card/VBox/Header"]
+layout_mode = 2
+theme_type_variation = &"HeaderTitleLabel"
+text = "CREDITS"
+vertical_alignment = 1
+
+[node name="HeaderLine" type="ColorRect" parent="Root/Slide/Card/VBox"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.357, 0.439, 0.565, 1)
+
+[node name="Body" type="MarginContainer" parent="Root/Slide/Card/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="BodyVBox" type="VBoxContainer" parent="Root/Slide/Card/VBox/Body"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Scroll" type="ScrollContainer" parent="Root/Slide/Card/VBox/Body/BodyVBox"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+focus_mode = 0
+horizontal_scroll_mode = 0
+
+[node name="Inset" type="MarginContainer" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_right = 14
+
+[node name="Content" type="VBoxContainer" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Team" type="VBoxContainer" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Caption" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Team"]
+layout_mode = 2
+theme_type_variation = &"StatCaptionLabel"
+text = "TEAM"
+
+[node name="Member1" type="HBoxContainer" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Team"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Team/Member1"]
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "Katerina Hasiukova"
+size_flags_horizontal = 3
+
+[node name="Role" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Team/Member1"]
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+text = "Game Designer / PM"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Member2" type="HBoxContainer" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Team"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Team/Member2"]
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "Dmytro Kulyk"
+size_flags_horizontal = 3
+
+[node name="Role" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Team/Member2"]
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+text = "Core Gameplay"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Member3" type="HBoxContainer" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Team"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Team/Member3"]
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "Mariia Samoilenko"
+size_flags_horizontal = 3
+
+[node name="Role" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Team/Member3"]
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+text = "AI"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Member4" type="HBoxContainer" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Team"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Team/Member4"]
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "Veronika Maslo"
+size_flags_horizontal = 3
+
+[node name="Role" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Team/Member4"]
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+text = "Systems & UI"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Fonts" type="VBoxContainer" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Caption" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Fonts"]
+layout_mode = 2
+theme_type_variation = &"StatCaptionLabel"
+text = "FONTS"
+
+[node name="ChakraPetch" type="VBoxContainer" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Fonts"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Title" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Fonts/ChakraPetch"]
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "Chakra Petch"
+autowrap_mode = 3
+
+[node name="Line1" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Fonts/ChakraPetch"]
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+text = "Copyright 2018 The Chakra Petch Project Authors (https://github.com/m4rc1e/Chakra-Petch.git)"
+autowrap_mode = 3
+
+[node name="Line2" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Fonts/ChakraPetch"]
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+text = "SIL Open Font License 1.1"
+autowrap_mode = 3
+
+[node name="Barlow" type="VBoxContainer" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Fonts"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Title" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Fonts/Barlow"]
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "Barlow"
+autowrap_mode = 3
+
+[node name="Line1" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Fonts/Barlow"]
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+text = "Copyright 2017 The Barlow Project Authors (https://github.com/jpt/barlow)"
+autowrap_mode = 3
+
+[node name="Line2" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Fonts/Barlow"]
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+text = "SIL Open Font License 1.1"
+autowrap_mode = 3
+
+[node name="Art" type="VBoxContainer" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Caption" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Art"]
+layout_mode = 2
+theme_type_variation = &"StatCaptionLabel"
+text = "ART"
+
+[node name="Characters" type="VBoxContainer" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Art"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Title" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Art/Characters"]
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "Character sprites"
+autowrap_mode = 3
+
+[node name="Line1" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Art/Characters"]
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+text = "Kenney (kenney.nl), Topdown Shooter pack: Hitman 1, Man Blue. CC0"
+autowrap_mode = 3
+
+[node name="Museum" type="VBoxContainer" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Art"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Title" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Art/Museum"]
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "Museum background"
+autowrap_mode = 3
+
+[node name="Line1" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Art/Museum"]
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+text = "Added by Dmytro Kulyk"
+autowrap_mode = 3
+
+[node name="Interface" type="VBoxContainer" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Art"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Title" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Art/Interface"]
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "Menu background, emblem and UI graphics"
+autowrap_mode = 3
+
+[node name="Line1" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Art/Interface"]
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+text = "Made for this project with AI assistance (Claude)"
+autowrap_mode = 3
+
+[node name="Audio" type="VBoxContainer" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Caption" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Audio"]
+layout_mode = 2
+theme_type_variation = &"StatCaptionLabel"
+text = "AUDIO"
+
+[node name="Line1" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Audio"]
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+text = "Sound effects & music: free sound libraries, selected by Dmytro Kulyk"
+autowrap_mode = 3
+
+[node name="Engine" type="VBoxContainer" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Caption" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Engine"]
+layout_mode = 2
+theme_type_variation = &"StatCaptionLabel"
+text = "ENGINE"
+
+[node name="Made" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Engine"]
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "Made with Godot Engine"
+
+[node name="License" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/Scroll/Inset/Content/Engine"]
+layout_mode = 2
+theme_type_variation = &"LicenseLabel"
+text = "Godot Engine licence text"
+autowrap_mode = 3
+
+[node name="Separator" type="ColorRect" parent="Root/Slide/Card/VBox/Body/BodyVBox"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.227, 0.29, 0.376, 1)
+
+[node name="BackButton" type="Button" parent="Root/Slide/Card/VBox/Body/BodyVBox"]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+theme_type_variation = &"PauseButton"
+text = "BACK"
+
+[node name="Hint" type="HBoxContainer" parent="Root/Slide"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -40.0
+offset_right = 200.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Cap" type="PanelContainer" parent="Root/Slide/Hint"]
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"KeyCap"
+
+[node name="Label" type="Label" parent="Root/Slide/Hint/Cap"]
+layout_mode = 2
+theme_type_variation = &"KeyLabel"
+text = "ESC"
+
+[node name="Word" type="Label" parent="Root/Slide/Hint"]
+layout_mode = 2
+theme_type_variation = &"CaptionLabel"
+text = "BACK"
+vertical_alignment = 1

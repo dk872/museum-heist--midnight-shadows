@@ -38,6 +38,7 @@ What's done, how to use it, what's broken. One section per area.
 - `UserSettings` (`systems/user_settings.gd`, static, not an autoload, same shape as `Records`): preferences in `user://settings.cfg` — `[audio]` `master` / `music` / `sfx` (0..1, defaults 1.0 / 0.7 / 1.0) and `[display]` `fullscreen` (default off). Every setter applies and saves. `GameManager._ready()` calls `UserSettings.apply()` once at boot; that sets the bus volumes (a bus at 0 is muted) and enters fullscreen if it was saved, except on Web, where the browser only allows it from the toggle click.
 - Audio buses (`default_bus_layout.tres`): Master ← `Music`, `SFX`, all at 0 dB; only `UserSettings` changes them. Dmytro's players are routed: `bg_music` (created in `GameManager._setup_music()`) → `Music`; every `AudioStreamPlayer` / `AudioStreamPlayer2D` in `player.tscn`, `guard.tscn`, `display_case.tscn`, `security_panel.tscn` and `exit_zone.tscn` → `SFX`.
 - Theme: `HSlider` entry in `main_theme.tres` (dark 6 px track with the edge border, amber fill, grabber `assets/ui/slider_grabber.svg`), so every slider in the game gets the look.
+- Credits screen (`ui/screens/credits.tscn`, `CanvasLayer` on layer 30, opened from CREDITS in the main menu, now enabled; not in the pause menu): a 520 px card like the settings card with a 400 px scrolling body — TEAM, FONTS (copyright lines and SIL OFL 1.1), ART, AUDIO, and ENGINE with the full Godot licence notice from `Engine.get_license_text()`. BACK is focused on open; Up / Down scroll 40 px, the mouse wheel scrolls; BACK or Esc closes and gives focus back to CREDITS. Same content as `docs/CREDITS.md`. Theme additions: `LicenseLabel` (12 px `MutedLabel`) and a `VScrollBar` style (thin dark track, steel grabber).
 
 **How to use**
 - Player caught → `GameManager.lose("detected")`. Reached the goal → `GameManager.win()`. Only the first call per run counts.
@@ -53,6 +54,7 @@ What's done, how to use it, what's broken. One section per area.
 - Debug builds: keys **1** panel, **2** artifact, **3** win, **4** lose, **0** restart level, **9** clear best records. Prints every signal to Output.
 - A new sound player must set `bus` to `Music` or `SFX`, otherwise the volume sliders don't affect it (it plays on Master and only follows MASTER).
 - Read or change a preference from code → `UserSettings.get_volume("music")`, `UserSettings.set_volume("music", 0.5)` (keys `master`, `music`, `sfx`), `UserSettings.set_fullscreen(true)`. Open the screen → instance `ui/screens/settings.tscn` as a child and wait for `closed`; it frees itself. If the opener already dims the screen, set `show_dim = false` on the instance before `add_child`.
+- Credits → keep `docs/CREDITS.md` and the credits screen (`ui/screens/credits.tscn`) in sync; change both in the same commit.
 
 **Known issues**
 - On the Web build, Esc also leaves browser fullscreen; a second key for pause may be needed later.
