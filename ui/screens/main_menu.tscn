@@ -172,7 +172,6 @@ text = "PLAY"
 [node name="SettingsButton" type="Button" parent="Buttons" unique_id=336103456]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
-disabled = true
 text = "SETTINGS"
 
 [node name="CreditsButton" type="Button" parent="Buttons" unique_id=1102338905]

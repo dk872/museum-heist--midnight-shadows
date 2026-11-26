@@ -1,0 +1,282 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://ui/screens/settings.gd" id="1_settings"]
+[ext_resource type="Texture2D" path="res://assets/ui/emblem_watermark.svg" id="2_watermark"]
+[ext_resource type="AudioStream" path="res://assets/audio/coin_drop.mp3" id="3_preview"]
+
+[sub_resource type="Gradient" id="card_gradient"]
+offsets = PackedFloat32Array(0, 1)
+colors = PackedColorArray(0.137, 0.176, 0.227, 1, 0.11, 0.141, 0.188, 1)
+
+[sub_resource type="GradientTexture2D" id="card_gradient_tex"]
+gradient = SubResource("card_gradient")
+width = 8
+height = 64
+fill_from = Vector2(0, 0)
+fill_to = Vector2(0, 1)
+
+[node name="Settings" type="CanvasLayer"]
+process_mode = 3
+layer = 30
+script = ExtResource("1_settings")
+
+[node name="Root" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dim" type="ColorRect" parent="Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.031, 0.039, 0.055, 0.7)
+
+[node name="Slide" type="Control" parent="Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Shadow" type="Panel" parent="Root/Slide"]
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"CardShadow"
+
+[node name="Card" type="PanelContainer" parent="Root/Slide"]
+custom_minimum_size = Vector2(440, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+clip_contents = true
+theme_type_variation = &"PauseCard"
+
+[node name="GradientInset" type="MarginContainer" parent="Root/Slide/Card"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
+
+[node name="Gradient" type="TextureRect" parent="Root/Slide/Card/GradientInset"]
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("card_gradient_tex")
+expand_mode = 1
+
+[node name="WatermarkAnchor" type="Control" parent="Root/Slide/Card"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Watermark" type="TextureRect" parent="Root/Slide/Card/WatermarkAnchor"]
+modulate = Color(0.863, 0.902, 0.949, 0.06)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -190.0
+offset_top = -190.0
+offset_right = 70.0
+offset_bottom = 70.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+texture = ExtResource("2_watermark")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBox" type="VBoxContainer" parent="Root/Slide/Card"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Header" type="PanelContainer" parent="Root/Slide/Card/VBox"]
+layout_mode = 2
+theme_type_variation = &"ReportHeader"
+
+[node name="Title" type="Label" parent="Root/Slide/Card/VBox/Header"]
+layout_mode = 2
+theme_type_variation = &"HeaderTitleLabel"
+text = "SETTINGS"
+vertical_alignment = 1
+
+[node name="HeaderLine" type="ColorRect" parent="Root/Slide/Card/VBox"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.357, 0.439, 0.565, 1)
+
+[node name="Body" type="MarginContainer" parent="Root/Slide/Card/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="BodyVBox" type="VBoxContainer" parent="Root/Slide/Card/VBox/Body"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="MasterRow" type="HBoxContainer" parent="Root/Slide/Card/VBox/Body/BodyVBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Caption" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/MasterRow"]
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+theme_type_variation = &"StatCaptionLabel"
+text = "MASTER"
+vertical_alignment = 1
+
+[node name="Slider" type="HSlider" parent="Root/Slide/Card/VBox/Body/BodyVBox/MasterRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 100.0
+step = 5.0
+value = 100.0
+
+[node name="Value" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/MasterRow"]
+custom_minimum_size = Vector2(44, 0)
+layout_mode = 2
+theme_type_variation = &"StatCaptionLabel"
+text = "100%"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="MusicRow" type="HBoxContainer" parent="Root/Slide/Card/VBox/Body/BodyVBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Caption" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/MusicRow"]
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+theme_type_variation = &"StatCaptionLabel"
+text = "MUSIC"
+vertical_alignment = 1
+
+[node name="Slider" type="HSlider" parent="Root/Slide/Card/VBox/Body/BodyVBox/MusicRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 100.0
+step = 5.0
+value = 70.0
+
+[node name="Value" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/MusicRow"]
+custom_minimum_size = Vector2(44, 0)
+layout_mode = 2
+theme_type_variation = &"StatCaptionLabel"
+text = "70%"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="EffectsRow" type="HBoxContainer" parent="Root/Slide/Card/VBox/Body/BodyVBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Caption" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/EffectsRow"]
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+theme_type_variation = &"StatCaptionLabel"
+text = "EFFECTS"
+vertical_alignment = 1
+
+[node name="Slider" type="HSlider" parent="Root/Slide/Card/VBox/Body/BodyVBox/EffectsRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 100.0
+step = 5.0
+value = 100.0
+
+[node name="Value" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/EffectsRow"]
+custom_minimum_size = Vector2(44, 0)
+layout_mode = 2
+theme_type_variation = &"StatCaptionLabel"
+text = "100%"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Separator" type="ColorRect" parent="Root/Slide/Card/VBox/Body/BodyVBox"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.227, 0.29, 0.376, 1)
+
+[node name="FullscreenRow" type="HBoxContainer" parent="Root/Slide/Card/VBox/Body/BodyVBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Caption" type="Label" parent="Root/Slide/Card/VBox/Body/BodyVBox/FullscreenRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"StatCaptionLabel"
+text = "FULLSCREEN"
+vertical_alignment = 1
+
+[node name="Toggle" type="Button" parent="Root/Slide/Card/VBox/Body/BodyVBox/FullscreenRow"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+theme_type_variation = &"PauseButton"
+toggle_mode = true
+text = "OFF"
+
+[node name="BackButton" type="Button" parent="Root/Slide/Card/VBox/Body/BodyVBox"]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+theme_type_variation = &"PauseButton"
+text = "BACK"
+
+[node name="Hint" type="HBoxContainer" parent="Root/Slide"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -54.0
+offset_right = 200.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Cap" type="PanelContainer" parent="Root/Slide/Hint"]
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"KeyCap"
+
+[node name="Label" type="Label" parent="Root/Slide/Hint/Cap"]
+layout_mode = 2
+theme_type_variation = &"KeyLabel"
+text = "ESC"
+
+[node name="Word" type="Label" parent="Root/Slide/Hint"]
+layout_mode = 2
+theme_type_variation = &"CaptionLabel"
+text = "BACK"
+vertical_alignment = 1
+
+[node name="Preview" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_preview")
+bus = &"SFX"

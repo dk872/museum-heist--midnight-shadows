@@ -35,6 +35,8 @@ shape = SubResource("RectangleShape2D_obds8")
 
 [node name="FootstepSound" type="AudioStreamPlayer" parent="." unique_id=1513961830]
 stream = ExtResource("3_76oj4")
+bus = &"SFX"
 
 [node name="CoinSound" type="AudioStreamPlayer2D" parent="." unique_id=2012087392]
 stream = ExtResource("4_dyp2m")
+bus = &"SFX"

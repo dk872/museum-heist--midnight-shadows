@@ -39,6 +39,7 @@ var bg_music: AudioStreamPlayer
 
 
 func _ready() -> void:
+	UserSettings.apply()
 	_setup_music()
 	if OS.is_debug_build() and log_signals:
 		_connect_debug_log()
@@ -52,6 +53,7 @@ func _setup_music() -> void:
 	bg_music.stream = load(MUSIC_PATH)
 	bg_music.volume_db = MUSIC_VOLUME_PLAYING
 	bg_music.process_mode = Node.PROCESS_MODE_ALWAYS
+	bg_music.bus = &"Music"
 	add_child(bg_music)
 	bg_music.play()
 

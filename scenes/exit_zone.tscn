@@ -35,8 +35,10 @@ horizontal_alignment = 1
 
 [node name="VictorySound" type="AudioStreamPlayer" parent="." unique_id=919815688]
 stream = ExtResource("3_dwd3s")
+bus = &"SFX"
 
 [node name="LockedSound" type="AudioStreamPlayer" parent="." unique_id=1678289632]
 stream = ExtResource("4_3v2md")
+bus = &"SFX"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -34,3 +34,4 @@ horizontal_alignment = 1
 
 [node name="HackSound" type="AudioStreamPlayer" parent="." unique_id=1075326885]
 stream = ExtResource("3_ffqod")
+bus = &"SFX"

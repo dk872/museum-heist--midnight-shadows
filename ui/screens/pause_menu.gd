@@ -6,6 +6,7 @@ const COLOR_AMBER := Color(0.961, 0.651, 0.137)
 const DIM_ALPHA := 0.7
 const SLIDE_OFFSET := 20.0
 const ENTRANCE_TIME := 0.2
+const SETTINGS_SCENE := preload("res://ui/screens/settings.tscn")
 
 @onready var dim: ColorRect = $Root/Dim
 @onready var slide: Control = $Root/Slide
@@ -25,6 +26,7 @@ const ENTRANCE_TIME := 0.2
 ]
 @onready var resume_button: Button = $Root/Slide/Card/VBox/Body/BodyVBox/Buttons/ResumeButton
 @onready var restart_button: Button = $Root/Slide/Card/VBox/Body/BodyVBox/Buttons/RestartButton
+@onready var settings_button: Button = $Root/Slide/Card/VBox/Body/BodyVBox/Buttons/SettingsButton
 @onready var menu_button: Button = $Root/Slide/Card/VBox/Body/BodyVBox/Buttons/MenuButton
 
 var _entrance: Tween
@@ -35,6 +37,7 @@ func _ready() -> void:
 	detection_value.add_theme_color_override("font_color", COLOR_AMBER)
 	resume_button.pressed.connect(_on_resume_pressed)
 	restart_button.pressed.connect(_on_restart_pressed)
+	settings_button.pressed.connect(_on_settings_pressed)
 	menu_button.pressed.connect(_on_menu_pressed)
 	GameManager.state_changed.connect(_on_state_changed)
 	# The drop shadow is a separate panel so the card's clip_contents does not cut it off.
@@ -85,6 +88,7 @@ func _play_entrance() -> void:
 	dim.color.a = 0.0
 	slide.modulate.a = 0.0
 	slide.position.y = SLIDE_OFFSET
+	slide.visible = true
 	visible = true
 	resume_button.grab_focus()
 	_entrance = create_tween().set_parallel(true)
@@ -113,6 +117,21 @@ func _on_resume_pressed() -> void:
 
 func _on_restart_pressed() -> void:
 	SceneManager.restart_level()
+
+
+## Settings replaces the card while it is open; the game stays paused and this
+## menu's dim stays up, so the settings screen is told not to add its own.
+func _on_settings_pressed() -> void:
+	slide.visible = false
+	var settings := SETTINGS_SCENE.instantiate()
+	settings.show_dim = false
+	settings.closed.connect(_on_settings_closed)
+	add_child(settings)
+
+
+func _on_settings_closed() -> void:
+	slide.visible = true
+	settings_button.grab_focus()
 
 
 func _on_menu_pressed() -> void:

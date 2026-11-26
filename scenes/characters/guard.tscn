@@ -26,3 +26,4 @@ collision_mask = 3
 
 [node name="AlertSound" type="AudioStreamPlayer" parent="." unique_id=553459047]
 stream = ExtResource("3_7d305")
+bus = &"SFX"
