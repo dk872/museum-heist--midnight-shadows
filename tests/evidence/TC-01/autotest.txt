@@ -1,0 +1,73 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[GameManager] suspicion_changed: 0.0
+[GameManager] objective_changed: Find the security panel
+[GameManager] run_reset
+[GameManager] suspicion_changed: 0.0
+[GameManager] objective_changed: Find the security panel
+[GameManager] run_reset
+PASS: Walking speed is 200 px/s
+PASS: Sneaking (Shift) halves the speed to 100 px/s
+PASS: Diagonal movement is normalised to 200 px/s
+PASS: Player stops when no movement key is held
+PASS: Player actually walked toward the wall
+PASS: Wall stops the player at its left edge
+[GameManager] suspicion_changed: 0.0
+[GameManager] objective_changed: Find the security panel
+[GameManager] run_reset
+[GameManager] message: The case is protected. Disable the security panel first
+PASS: Case is locked while the panel is active
+Security panel successfully hacked!
+[GameManager] panel_disabled
+[GameManager] objective_changed: Open the display case (hold E)
+PASS: Panel interaction disables the panel
+PASS: Objective changes to the display case
+PASS: Second panel interaction changes nothing
+Display case hack started... Hold the key!
+PASS: Case hack starts after the panel is disabled
+Hack aborted!
+PASS: Releasing early cancels the hack and resets progress
+Display case hack started... Hold the key!
+Artifact 'Eye of the Pharaoh' successfully stolen!
+[GameManager] artifact_taken
+[GameManager] objective_changed: Escape through the emergency exit
+PASS: Holding 2 s takes the artifact
+PASS: Objective changes to the exit
+[GameManager] suspicion_changed: 0.0
+[GameManager] objective_changed: Find the security panel
+[GameManager] run_reset
+PASS: Interaction far from the panel has no effect
+Security panel successfully hacked!
+[GameManager] panel_disabled
+[GameManager] objective_changed: Open the display case (hold E)
+PASS: Interaction in range reaches the panel
+[GameManager] suspicion_changed: 0.0
+[GameManager] objective_changed: Find the security panel
+[GameManager] run_reset
+PASS: Player starts with 3 coins
+[GameManager] message: Coins left: 2
+[GameManager] message: Coins left: 1
+[GameManager] message: Coins left: 0
+[GameManager] message: No coins left
+PASS: Fourth throw does nothing; coins never go negative
+[GameManager] suspicion_changed: 0.0
+[GameManager] objective_changed: Find the security panel
+[GameManager] run_reset
+PASS: Reset refills coins to 3 (run_reset)
+[GameManager] suspicion_changed: 0.0
+[GameManager] objective_changed: Find the security panel
+[GameManager] run_reset
+You haven't stolen the artifact yet! Go back.
+[GameManager] message: Steal the Eye of the Pharaoh first
+PASS: Exit without the artifact does not win
+[GameManager] artifact_taken
+[GameManager] objective_changed: Escape through the emergency exit
+Victory! You successfully escaped with the artifact.
+[GameManager] state -> WON
+[GameManager] game_won
+PASS: Exit with the artifact wins
+Player integration: 21 checks, 0 failures
+WARNING: 16 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 8 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
