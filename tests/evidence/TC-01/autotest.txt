@@ -44,6 +44,15 @@ PASS: Interaction in range reaches the panel
 [GameManager] suspicion_changed: 0.0
 [GameManager] objective_changed: Find the security panel
 [GameManager] run_reset
+[GameManager] panel_disabled
+[GameManager] objective_changed: Open the display case (hold E)
+Display case hack started... Hold the key!
+PASS: Hold E in range starts the case hack
+Hack aborted!
+PASS: Walking away while holding E cancels the hack (TC-01-D1)
+[GameManager] suspicion_changed: 0.0
+[GameManager] objective_changed: Find the security panel
+[GameManager] run_reset
 PASS: Player starts with 3 coins
 [GameManager] message: Coins left: 2
 [GameManager] message: Coins left: 1
@@ -66,8 +75,8 @@ Victory! You successfully escaped with the artifact.
 [GameManager] state -> WON
 [GameManager] game_won
 PASS: Exit with the artifact wins
-Player integration: 21 checks, 0 failures
-WARNING: 16 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+Player integration: 23 checks, 0 failures
+WARNING: 18 ObjectDB instances were leaked at exit (run with `--verbose` for details).
    at: cleanup (core/object/object.cpp:2536)
 ERROR: 8 resources still in use at exit (run with --verbose for details).
    at: clear (core/io/resource.cpp:822)

@@ -11,6 +11,14 @@ var required_time: float = 2.0 # 2 seconds per GDD
 @onready var abort_sound: AudioStreamPlayer = $AbortSound
 @onready var success_sound: AudioStreamPlayer = $SuccessSound
 
+func _ready() -> void:
+	area_exited.connect(_on_area_exited)
+
+# TC-01-D1: walking away while holding E must cancel the hack, not finish it from a distance
+func _on_area_exited(area: Area2D) -> void:
+	if is_hacking and area.get_parent().is_in_group("player"):
+		cancel_interact()
+
 # Called when the player presses and holds the "interact" button
 func interact() -> void:
 	if GameManager.has_artifact:

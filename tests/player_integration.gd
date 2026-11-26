@@ -45,6 +45,7 @@ func _ready() -> void:
 	player.velocity = Vector2.ZERO
 	_test_case_and_panel()
 	await _test_interaction_range()
+	await _test_walk_away_cancels()
 	_test_coins()
 	_test_exit()
 
@@ -170,6 +171,21 @@ func _test_interaction_range() -> void:
 	check(GameManager.panel_is_disabled, "Interaction in range reaches the panel")
 	player.global_position = START_POS
 	await _settle()
+
+
+# TC-01-D1 regression: walking away from the case while holding E cancels the hack.
+func _test_walk_away_cancels() -> void:
+	GameManager.reset()
+	GameManager.on_panel_disabled()
+	var reach: Vector2 = player.get_node("InteractionArea/CollisionShape2D").position
+	var case_box: Vector2 = case.get_node("CollisionShape2D").position
+	player.global_position = case.global_position + case_box - reach
+	await _settle()
+	player._try_interact(true)
+	check(case.is_hacking, "Hold E in range starts the case hack")
+	player.global_position = START_POS
+	await _settle()
+	check(not case.is_hacking and not GameManager.has_artifact, "Walking away while holding E cancels the hack (TC-01-D1)")
 
 
 # 8–9. Three coins, never negative, refilled by reset.
