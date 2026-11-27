@@ -286,7 +286,7 @@ theme_type_variation = &"KeyCap"
 [node name="Label" type="Label" parent="Hint/Key4/Cap"]
 layout_mode = 2
 theme_type_variation = &"KeyLabel"
-text = "ESC"
+text = "ESC / P"
 
 [node name="Word" type="Label" parent="Hint/Key4"]
 layout_mode = 2

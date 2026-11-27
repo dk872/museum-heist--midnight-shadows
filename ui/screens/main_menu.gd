@@ -11,6 +11,7 @@ const CREDITS_SCENE := preload("res://ui/screens/credits.tscn")
 @onready var settings_button: Button = $Buttons/SettingsButton
 @onready var credits_button: Button = $Buttons/CreditsButton
 @onready var beam: Polygon2D = $Beam
+@onready var hint: Control = $Hint
 
 
 func _ready() -> void:
@@ -28,15 +29,25 @@ func _on_play_pressed() -> void:
 
 ## The screen frees itself on close; focus comes back to the button that opened it.
 func _on_settings_pressed() -> void:
-	var settings := SETTINGS_SCENE.instantiate()
-	settings.closed.connect(settings_button.grab_focus)
-	add_child(settings)
+	_open_overlay(SETTINGS_SCENE, settings_button)
 
 
 func _on_credits_pressed() -> void:
-	var credits := CREDITS_SCENE.instantiate()
-	credits.closed.connect(credits_button.grab_focus)
-	add_child(credits)
+	_open_overlay(CREDITS_SCENE, credits_button)
+
+
+## The menu's own key hints are hidden while an overlay is open, so they don't
+## collide with the overlay's ESC BACK hint at the bottom of the screen.
+func _open_overlay(scene: PackedScene, opener: Button) -> void:
+	var overlay := scene.instantiate()
+	hint.visible = false
+	overlay.closed.connect(_on_overlay_closed.bind(opener))
+	add_child(overlay)
+
+
+func _on_overlay_closed(opener: Button) -> void:
+	hint.visible = true
+	opener.grab_focus()
 
 
 func _start_beam_sweep() -> void:
